@@ -1,60 +1,37 @@
-package com.marketplace.user;
+package com.marketplace.marketplace.user;
 
-import jakarta.persistence.*;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Entity
-@Table(name = "users")
-public class UserEntity {
+public class UserDto {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     
-    @Column(name = "first_name", nullable = false)
     private String firstName;
-    
-    @Column(name = "last_name", nullable = false)
     private String lastName;
     
-    @Column(name = "email", unique = true, nullable = false)
     private String email;
-    
-    @Column(name = "password", nullable = false)
     private String password;
     
-    @Column(name = "phone_number")
     private String phoneNumber;
-
-    @Column(name = "role", nullable = false)
+    
     private String role;
     
-    @Column(name = "is_active")
     private boolean isActive;
     
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-    
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-    
     // Constructors
-    public UserEntity() {
+    public UserDto() {
     }
     
-    public UserEntity(String firstName, String lastName, String email, String password,
-                  String phoneNumber, String role) {
-        this.id = UUID.randomUUID();
+    public UserDto(UUID id, String firstName, String lastName, String email, 
+                   String password, String phoneNumber, String role, boolean isActive) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.role = role;
-        this.isActive = true;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
+        this.isActive = isActive;
     }
     
     // Getters and Setters
@@ -122,19 +99,19 @@ public class UserEntity {
         isActive = active;
     }
     
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-    
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-    
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-    
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
+    /**
+     * Convert Entity to UserDto
+     */
+    public static UserDto fromEntity(UserEntity user) {
+        return new UserDto(
+            user.getId(),
+            user.getFirstName(),
+            user.getLastName(),
+            user.getEmail(),
+            user.getPassword(),
+            user.getPhoneNumber(),
+            user.getRole(),
+            user.isActive()
+        );
     }
 }
