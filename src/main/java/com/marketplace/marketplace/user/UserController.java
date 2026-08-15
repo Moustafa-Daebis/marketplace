@@ -16,21 +16,6 @@ public class UserController {
     @Autowired
     private UserService userService;
     
-    /**
-     * Create a new user
-     */
-    @PostMapping("/register")
-    public ResponseEntity<ApiResponse<UserDto>> createUser(@RequestBody UserDto userDto) {
-        try {
-
-            userService.createUser(userDto);
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(new ApiResponse<>(true, "User created successfully", userDto));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new ApiResponse<>(false, e.getMessage(), null));
-        }
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<UserDto>> getUser(@PathVariable UUID id) {
