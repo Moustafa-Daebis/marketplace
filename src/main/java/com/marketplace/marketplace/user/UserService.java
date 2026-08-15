@@ -3,6 +3,9 @@ package com.marketplace.marketplace.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Service
 public class UserService {
     
@@ -23,5 +26,24 @@ public class UserService {
             userDto.getRole()
         ));
         return userDto;
+    }
+
+    public Optional<UserDto> getUser(UUID id) {
+        Optional<UserEntity> userEntity = userRepository.findById(id);
+        if(userEntity.isPresent()){
+            return Optional.of(new UserDto(
+                userEntity.get().getId(),
+                userEntity.get().getFirstName(),
+                userEntity.get().getLastName(),
+                userEntity.get().getEmail(),
+                userEntity.get().getPassword(),
+                userEntity.get().getPhoneNumber(),
+                userEntity.get().getRole(),
+                userEntity.get().isActive()
+            ));
+        }else{
+            return Optional.empty();
+        }
+
     }
 }
