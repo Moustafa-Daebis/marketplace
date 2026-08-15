@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -45,5 +46,16 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new ApiResponse<>(false, e.getMessage(), null));
         }
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<ApiResponse<List<UserEntity>>> getAllUsers() {
+        try {
+            List<UserEntity> users = userService.getAllUsers();
+            return ResponseEntity.ok(new ApiResponse<>(true, "Users retrieved successfully", users));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse<>(false, "Failed to retrieve users", null));
+            }
     }
 }
