@@ -17,17 +17,6 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public UserDto createUser(UserDto userDto) {
-        userRepository.save(new UserEntity(
-                userDto.getFirstName(),
-                userDto.getLastName(),
-                userDto.getEmail(),
-                userDto.getPassword(),
-                userDto.getPhoneNumber(),
-                userDto.getRole()
-        ));
-        return userDto;
-    }
 
     public Optional<UserDto> getUser(UUID id) {
         Optional<UserEntity> userEntity = userRepository.findById(id);
