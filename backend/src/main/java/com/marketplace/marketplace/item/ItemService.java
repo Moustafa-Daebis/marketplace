@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -19,7 +21,7 @@ public class ItemService {
         this.userRepository = userRepository;
     }
 
-    public ItemEntity createItem(String name, String description, UUID sellerId) {
+    public ItemDto createItem(String name, String description, UUID sellerId) {
         if (name == null || name.isBlank()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Item name is required");
         }
@@ -32,6 +34,17 @@ public class ItemService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Seller not found"));
 
         ItemEntity item = new ItemEntity(name, description, seller);
-        return itemRepository.save(item);
+        return ItemDto.fromEntity(itemRepository.save(item));
+    }
+
+    public Optional<ItemDto> getItemById(UUID id) {
+        return itemRepository.findById(id)
+                .map(ItemDto::fromEntity);
+    }
+
+    public List<ItemDto> getAllItems() {
+        return itemRepository.findAll().stream()
+                .map(ItemDto::fromEntity)
+                .toList();
     }
 }
