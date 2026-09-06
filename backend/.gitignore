@@ -38,3 +38,4 @@ build/
 
 # Ignore the environment files
 .env
+/logs/marketplace.log
