@@ -38,6 +38,7 @@
             font-size: 1.5rem;
             font-weight: bold;
         }
+        .menu-toggle { display: none; background: transparent; border: none; color: white; font-size: 1.25rem; cursor: pointer; }
         .nav-links {
             display: flex;
             gap: 16px;
@@ -51,6 +52,13 @@
         }
         .nav-links a:hover {
             background: rgba(255,255,255,0.1);
+        }
+        @media (max-width: 700px) {
+            .menu-toggle { display: block; }
+            .nav { padding: 12px 16px; }
+            .nav-links { display: none; width: 100%; }
+            .nav.open .nav-links { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+            .nav.open .nav-links a { display: block; padding: 10px 14px; }
         }
         .hero {
             display: grid;
@@ -170,8 +178,9 @@
 </head>
 <body>
     <div class="container">
-        <nav class="nav">
+        <nav class="nav" id="mainNav">
             <div class="brand">Marketplace</div>
+            <button class="menu-toggle" aria-label="Toggle menu" onclick="document.getElementById('mainNav').classList.toggle('open')">☰</button>
             <div class="nav-links">
                 <a href="/">Home</a>
                 <a href="/items">Items</a>
