@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #eef2ff, #ecfeff);
+            color: #111827;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            padding-top: 100px; /* ensure content sits below fixed navbar */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: calc(100vh - 100px);
+        }
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #111827;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 0;
+            margin: 0;
+            box-shadow: 0 4px 14px rgba(17,24,39,0.12);
+            z-index: 1000;
+        }
+        .brand { font-size: 1.5rem; font-weight: bold; }
+        .menu-toggle { display: none; background: transparent; border: none; color: white; font-size: 1.25rem; cursor: pointer; }
+        .nav-links { display: flex; gap: 16px; align-items: center; }
+        .nav-links a { color: white; text-decoration: none; padding: 8px 12px; border-radius: 8px; }
+        .nav-links a:hover { background: rgba(255,255,255,0.1); }
+        @media (max-width: 700px) {
+            .menu-toggle { display: block; }
+            .nav { padding: 12px 16px; }
+            .nav-links { display: none; width: 100%; }
+            .nav.open .nav-links { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+            .nav.open .nav-links a { display: block; padding: 10px 14px; }
+        }
+
+        .auth-box {
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 12px 35px rgba(17, 24, 39, 0.08);
+            width: 100%;
+            max-width: 420px;
+            padding: 32px 28px;
+        }
+        h1 { margin-top: 0; margin-bottom: 8px; text-align: center; }
+        p { text-align: center; color: #6b7280; margin-bottom: 24px; }
+        form { display: flex; flex-direction: column; gap: 16px; }
+        input { width: 100%; padding: 12px 14px; border: 1px solid #d1d5db; border-radius: 10px; font-size: 1rem; }
+        .btn { border: none; border-radius: 10px; padding: 12px 16px; font-size: 1rem; font-weight: 700; background: #2563eb; color: white; cursor: pointer; }
+        .row{ display: flex; gap: 12px; }
+        .link-row { text-align: center; margin-top: 18px; color: #4b5563; }
+        .link-row a { color: #2563eb; text-decoration: none; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <nav class="nav" id="mainNav">
+        <div class="brand">Marketplace</div>
+        <button class="menu-toggle" aria-label="Toggle menu" onclick="document.getElementById('mainNav').classList.toggle('open')">☰</button>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/items">Items</a>
+            <a href="/add-item">Sell</a>
+            <a href="/login">Login</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="auth-box">
+            <h1>Login</h1>
+            <p>Welcome back to Marketplace</p>
+
+            <form>
+                <div class="row">
+                    <input type="email" placeholder="Email address" />
+                </div>
+                <div class="row">
+                    <input type="password" placeholder="Password" />
+                </div>
+
+                <button class="btn" type="submit">Sign In</button>
+            </form>
+
+            <div class="link-row">
+                <span>Don’t have an account?</span>
+                <a href="/register">Register</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
