@@ -7,7 +7,6 @@ import com.marketplace.marketplace.authentication.entity.Role;
 import com.marketplace.marketplace.authentication.entity.User;
 import com.marketplace.marketplace.authentication.exception.EmailAlreadyExistsException;
 import com.marketplace.marketplace.authentication.repository.UserRepositoryAuthorization;
-import com.marketplace.marketplace.config.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -21,7 +20,6 @@ public class AuthService {
 
     private final UserRepositoryAuthorization userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
     public AuthResponse register(RegisterRequest request) {
@@ -42,9 +40,8 @@ public class AuthService {
                 .build();
 
         User savedUser = userRepository.save(user);
-        String token = jwtService.generateToken(savedUser);
 
-        return buildAuthResponse(savedUser, token);
+        return buildAuthResponse(savedUser);
     }
 
     public AuthResponse login(LoginRequest request) {
@@ -60,20 +57,16 @@ public class AuthService {
         User user = userRepository.findByEmail(normalizedEmail)
                 .orElseThrow(() -> new BadCredentialsException("Invalid email or password"));
 
-        String token = jwtService.generateToken(user);
-
-        return buildAuthResponse(user, token);
+        return buildAuthResponse(user);
     }
 
-    private AuthResponse buildAuthResponse(User user, String token) {
+    private AuthResponse buildAuthResponse(User user) {
         return AuthResponse.builder()
                 .id(user.getId())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
                 .role(user.getRole().name())
-                .token(token)
-                .tokenType("Bearer")
                 .build();
     }
 }

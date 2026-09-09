@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -59,6 +59,22 @@
         }
         .nav-links a:hover {
             background: rgba(255,255,255,0.1);
+        }
+        .user-pill {
+            color: white;
+            font-weight: 600;
+            padding: 8px 10px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.08);
+        }
+        .logout-btn {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            border-radius: 999px;
+            padding: 8px 12px;
+            font-weight: 600;
+            cursor: pointer;
         }
         /* Mobile behavior */
         @media (max-width: 700px) {
@@ -190,10 +206,16 @@
             <div class="brand">Marketplace</div>
             <button class="menu-toggle" aria-label="Toggle menu" onclick="document.getElementById('mainNav').classList.toggle('open')">☰</button>
             <div class="nav-links">
-                <a href="/">Home</a>
-                <a href="/items">Items</a>
-                <a href="/add-item">Sell</a>
-                <a href="/login">Login</a>
+                <a th:href="@{/}">Home</a>
+                <a th:href="@{/items}">Items</a>
+                <a th:href="@{/add-item}">Sell</a>
+                <th:block th:if="${loggedIn}">
+                    <span class="user-pill" th:text="${currentUserName}">User</span>
+                    <form th:action="@{/logout}" method="post" style="display:inline; margin:0;">
+                        <button class="logout-btn" type="submit">Logout</button>
+                    </form>
+                </th:block>
+                <a th:unless="${loggedIn}" th:href="@{/login}">Login</a>
             </div>
         </nav>
 
