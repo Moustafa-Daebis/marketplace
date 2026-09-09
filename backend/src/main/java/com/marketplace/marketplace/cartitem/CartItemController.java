@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/cart-items")
@@ -37,6 +39,18 @@ public class CartItemController {
         }
     }
 
-
+    @GetMapping("/cart/{cartId}")
+    public ResponseEntity<ApiResponse<List<CartItemDto>>> getCartItemsByCartId(@PathVariable UUID cartId) {
+        try {
+            List<CartItemDto> cartItems = cartItemService.getCartItemsByCartId(cartId);
+            return ResponseEntity.ok(new ApiResponse<>(true, "Cart items retrieved successfully", cartItems));
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode())
+                    .body(new ApiResponse<>(false, e.getReason(), null));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse<>(false, "Failed to retrieve cart items", null));
+        }
+    }
 
 }

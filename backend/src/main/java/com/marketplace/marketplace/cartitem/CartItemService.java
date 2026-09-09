@@ -53,4 +53,17 @@ public class CartItemService {
         return CartItemDto.fromEntity(cartItemRepository.save(newCartItem));
     }
 
+    public List<CartItemDto> getCartItemsByCartId(UUID cartId) {
+        if (cartId == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cart id is required");
+        }
+
+        cartRepository.findById(cartId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cart not found"));
+
+        return cartItemRepository.findByCart_Id(cartId).stream()
+                .map(CartItemDto::fromEntity)
+                .toList();
+    }
+
 }
