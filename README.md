@@ -3,8 +3,9 @@ Marketplace
 
 A simple Spring Boot marketplace web application providing user authentication, item listing, cart management, and basic views. Built with Java and Maven; includes Thymeleaf templates and SQL schema files for H2 and PostgreSQL.
 
-Project structure (top-level)
+# Project structure (top-level)
 -----------------------------
+```text
 |-- pom.xml
 |-- src/
 |   |-- main/
@@ -81,3 +82,4 @@ Project structure (top-level)
 |                   |-- MarketplaceApplicationTests.java
 |-- logs/
 |   |-- marketplace.log
+```
