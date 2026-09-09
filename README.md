@@ -82,4 +82,5 @@ A simple Spring Boot marketplace web application providing user authentication, 
 |                   |-- MarketplaceApplicationTests.java
 |-- logs/
 |   |-- marketplace.log
+|-- README.md
 ```
