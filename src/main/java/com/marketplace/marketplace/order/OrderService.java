@@ -66,6 +66,9 @@ public class OrderService {
                 .toList();
         orderItemRepository.saveAll(orderItems);
 
+        cartItemRepository.deleteAll(cartItems);
+        cartRepository.delete(cart);
+
 
         return OrderDto.fromEntity(order);
     }
