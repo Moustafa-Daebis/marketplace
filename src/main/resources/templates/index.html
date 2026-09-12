@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <title>Marketplace</title>
     <style>
         * { box-sizing: border-box; }
@@ -60,19 +61,78 @@
         .nav-links a:hover {
             background: rgba(255,255,255,0.1);
         }
-        .user-pill {
-            color: white;
-            font-weight: 600;
-            padding: 8px 10px;
-            border-radius: 999px;
-            background: rgba(255,255,255,0.08);
+        .profile-menu-container {
+            position: relative;
+            display: inline-block;
         }
-        .logout-btn {
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.3);
+        .profile-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.18);
             color: white;
             border-radius: 999px;
-            padding: 8px 12px;
+            padding: 8px 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .profile-button .icon {
+            font-size: 1rem;
+        }
+        .profile-menu {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 12px);
+            width: 210px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 18px 36px rgba(17, 24, 39, 0.18);
+            border: 1px solid rgba(17, 24, 39, 0.08);
+            padding: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+            z-index: 1001;
+        }
+        .profile-menu-container:hover .profile-menu,
+        .profile-menu-container:focus-within .profile-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .profile-menu a,
+        .profile-menu button {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            border: none;
+            color: #111827;
+            text-decoration: none;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+        .profile-menu a:hover,
+        .profile-menu button:hover {
+            background: #f3f4f6;
+        }
+        .profile-menu .placeholder {
+            color: #6b7280;
+        }
+        .profile-menu .divider {
+            border-top: 1px solid #e5e7eb;
+            margin: 6px 0;
+        }
+        .profile-menu .logout-btn {
+            background: transparent;
+            border: 1px solid rgba(17, 24, 39, 0.12);
+            color: #111827;
+            border-radius: 8px;
+            padding: 10px 12px;
             font-weight: 600;
             cursor: pointer;
         }
@@ -83,6 +143,9 @@
             .nav-links { display: none; width: 100%; }
             .nav.open .nav-links { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
             .nav.open .nav-links a { display: block; padding: 10px 14px; }
+            .profile-menu-container { width: 100%; }
+            .profile-button { width: 100%; justify-content: center; }
+            .profile-menu { right: auto; left: 0; width: 100%; }
         }
         .hero {
             display: grid;
@@ -209,13 +272,28 @@
                 <a th:href="@{/}">Home</a>
                 <a th:href="@{/items}">Items</a>
                 <a th:href="@{/add-item}">Sell</a>
-                <th:block th:if="${loggedIn}">
-                    <span class="user-pill" th:text="${currentUserName}">User</span>
-                    <form th:action="@{/logout}" method="post" style="display:inline; margin:0;">
-                        <button class="logout-btn" type="submit">Logout</button>
-                    </form>
-                </th:block>
-                <a th:unless="${loggedIn}" th:href="@{/login}">Login</a>
+                <a th:href="@{/cart}">Cart</a>
+
+                <div class="profile-menu-container">
+                    <button class="profile-button" type="button" aria-label="Profile menu">
+                        <span class="icon">👤</span>
+                        <span th:text="${loggedIn ? currentUserName : 'Profile'}">Profile</span>
+                    </button>
+                    <div class="profile-menu" role="menu">
+                        <a th:href="@{/login}" role="menuitem">Login</a>
+                        <a th:href="@{/profile}" class="placeholder" role="menuitem">My Profile</a>
+                        <a href="#" class="placeholder" role="menuitem">Saved Items</a>
+                        <a href="#" class="placeholder" role="menuitem">Orders</a>
+                        <a href="#" class="placeholder" role="menuitem">Settings</a>
+
+                        <th:block th:if="${loggedIn}">
+                            <div class="divider"></div>
+                            <form th:action="@{/logout}" method="post" style="margin:0;">
+                                <button class="logout-btn" type="submit">Logout</button>
+                            </form>
+                        </th:block>
+                    </div>
+                </div>
             </div>
         </nav>
 
