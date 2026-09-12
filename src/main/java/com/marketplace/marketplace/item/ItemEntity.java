@@ -3,6 +3,7 @@ package com.marketplace.marketplace.item;
 import com.marketplace.marketplace.user.UserEntity;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -30,13 +31,19 @@ public class ItemEntity {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Column(name="price", nullable = false)
+    private BigDecimal price;
+
+
+
     public ItemEntity() {
     }
 
-    public ItemEntity(String name, String description, UserEntity seller) {
+    public ItemEntity(String name, String description, UserEntity seller, BigDecimal price) {
         this.name = name;
         this.description = description;
         this.seller = seller;
+        this.price = price;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
@@ -96,6 +103,14 @@ public class ItemEntity {
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public void setUpdatedAt(LocalDateTime updatedAt) {

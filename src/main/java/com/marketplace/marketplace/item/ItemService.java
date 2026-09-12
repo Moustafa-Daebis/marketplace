@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -21,9 +22,13 @@ public class ItemService {
         this.userRepository = userRepository;
     }
 
-    public ItemDto createItem(String name, String description, UUID sellerId) {
+    public ItemDto createItem(String name, String description, UUID sellerId, BigDecimal price) {
         if (name == null || name.isBlank()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Item name is required");
+        }
+
+        if (price == null || price.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Price is required and must be a positive value");
         }
 
         if (sellerId == null) {
@@ -33,7 +38,7 @@ public class ItemService {
         UserEntity seller = userRepository.findById(sellerId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Seller not found"));
 
-        ItemEntity item = new ItemEntity(name, description, seller);
+        ItemEntity item = new ItemEntity(name, description, seller, price);
         return ItemDto.fromEntity(itemRepository.save(item));
     }
 

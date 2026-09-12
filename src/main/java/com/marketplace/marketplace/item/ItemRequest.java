@@ -3,6 +3,7 @@ package com.marketplace.marketplace.item;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 public class ItemRequest {
@@ -15,13 +16,17 @@ public class ItemRequest {
     @NotNull(message = "Seller id is required")
     private UUID sellerId;
 
+    @NotNull(message = "Price is required")
+    private BigDecimal price;
+
     public ItemRequest() {
     }
 
-    public ItemRequest(String name, String description, UUID sellerId) {
+    public ItemRequest(String name, String description, UUID sellerId, BigDecimal price) {
         this.name = name;
         this.description = description;
         this.sellerId = sellerId;
+        this.price = price;
     }
 
     public String getName() {
@@ -48,4 +53,11 @@ public class ItemRequest {
         this.sellerId = sellerId;
     }
 
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
 }

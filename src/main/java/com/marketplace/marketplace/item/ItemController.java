@@ -28,7 +28,8 @@ public class ItemController {
             ItemDto createdItem = itemService.createItem(
                     request.getName(),
                     request.getDescription(),
-                    request.getSellerId()
+                    request.getSellerId(),
+                    request.getPrice()
             );
 
             return ResponseEntity.status(HttpStatus.CREATED)
