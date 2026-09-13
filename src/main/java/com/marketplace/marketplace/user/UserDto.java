@@ -10,7 +10,6 @@ public class UserDto {
     private String lastName;
     
     private String email;
-    private String password;
     
     private String phoneNumber;
     
@@ -23,12 +22,11 @@ public class UserDto {
     }
     
     public UserDto(UUID id, String firstName, String lastName, String email, 
-                   String password, String phoneNumber, String role, boolean isActive) {
+                    String phoneNumber, String role, boolean isActive) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
         this.phoneNumber = phoneNumber;
         this.role = role;
         this.isActive = isActive;
@@ -66,14 +64,7 @@ public class UserDto {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    public String getPassword() {
-        return password;
-    }
-    
-    public void setPassword(String password) {
-        this.password = password;
-    }
+
     
     public String getPhoneNumber() {
         return phoneNumber;
@@ -108,7 +99,6 @@ public class UserDto {
             user.getFirstName(),
             user.getLastName(),
             user.getEmail(),
-            user.getPassword(),
             user.getPhoneNumber(),
             user.getRole(),
             user.isActive()

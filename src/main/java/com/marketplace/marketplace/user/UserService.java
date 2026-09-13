@@ -26,7 +26,6 @@ public class UserService {
                     userEntity.get().getFirstName(),
                     userEntity.get().getLastName(),
                     userEntity.get().getEmail(),
-                    userEntity.get().getPassword(),
                     userEntity.get().getPhoneNumber(),
                     userEntity.get().getRole(),
                     userEntity.get().isActive()
@@ -35,6 +34,23 @@ public class UserService {
             return Optional.empty();
         }
 
+    }
+
+    public Optional<UserDto> getUserByEmail(String email) {
+        Optional<UserEntity> userEntity = userRepository.findByEmail(email);
+        if (userEntity.isPresent()) {
+            return Optional.of(new UserDto(
+                    userEntity.get().getId(),
+                    userEntity.get().getFirstName(),
+                    userEntity.get().getLastName(),
+                    userEntity.get().getEmail(),
+                    userEntity.get().getPhoneNumber(),
+                    userEntity.get().getRole(),
+                    userEntity.get().isActive()
+            ));
+        } else {
+            return Optional.empty();
+        }
     }
 
     public List<UserEntity> getAllUsers() {

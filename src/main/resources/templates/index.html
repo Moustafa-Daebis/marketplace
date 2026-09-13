@@ -277,7 +277,7 @@
                 <div class="profile-menu-container">
                     <button class="profile-button" type="button" aria-label="Profile menu">
                         <span class="icon">👤</span>
-                        <span th:text="${loggedIn ? currentUserName : 'Profile'}">Profile</span>
+                        <span th:text="${loggedIn ? user.firstName : 'Profile'}">Profile</span>
                     </button>
                     <div class="profile-menu" role="menu">
 
