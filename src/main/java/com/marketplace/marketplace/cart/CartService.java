@@ -48,4 +48,11 @@ public class CartService {
         }
         return cartRepository.findById(id).map(CartDto::fromEntity);
     }
+
+    public Optional<CartDto> getCartByUserId(UUID userId) {
+        if (userId == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User id is required");
+        }
+        return cartRepository.findByUserId(userId).map(CartDto::fromEntity);
+    }
 }

@@ -2,6 +2,7 @@ package com.marketplace.marketplace.web.cart;
 
 import com.marketplace.marketplace.cartitem.CartItemDto;
 import com.marketplace.marketplace.cartitem.CartItemService;
+import com.marketplace.marketplace.user.UserDto;
 import com.marketplace.marketplace.web.authentication.AuthenticationViewService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,7 @@ public class CartViewController {
     public String cart(Model model, Authentication authentication) {
         authenticationViewService.addAuthenticationModel(model, authentication);
 
-        UUID userId = model.getAttribute("user") != null ? ((com.marketplace.marketplace.user.UserDto) model.getAttribute("user")).getId() : null;
+        UUID userId = model.getAttribute("user") != null ? ((UserDto) model.getAttribute("user")).getId() : null;
         System.out.println("User in model: " + userId);
         List<CartItemDto> cartItems = cartItemService.getCartItemsByUserId(userId);
         model.addAttribute("cartItems", cartItems);

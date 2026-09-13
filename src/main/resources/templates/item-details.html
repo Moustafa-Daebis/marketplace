@@ -47,6 +47,30 @@
             font-weight: 700;
             color: #111827;
         }
+        .actions {
+            margin-top: 24px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            border: none;
+            border-radius: 10px;
+            padding: 12px 18px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+        .btn-secondary {
+            background: #e5e7eb;
+            color: #111827;
+        }
     </style>
 </head>
 <body>
@@ -71,7 +95,51 @@
                     <span th:text="${item.sellerId}">seller-id</span>
                 </p>
             </div>
+
+            <div class="actions">
+                <button id="add-to-cart-btn" class="btn btn-primary" type="button">Add to cart</button>
+                <a class="btn btn-secondary" th:href="@{/items}">Continue shopping</a>
+            </div>
         </div>
     </div>
+
+    <script th:inline="javascript">
+        const cartId = /*[[${cartId}]]*/ null;
+        const itemId = /*[[${item.id}]]*/ null;
+
+        document.getElementById('add-to-cart-btn')?.addEventListener('click', async () => {
+            if (!cartId) {
+                alert('Cart not found. Please create or access your cart first.');
+                window.location.href = '/cart';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/cart-items', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        cartId: cartId,
+                        itemId: itemId,
+                        quantity: 1
+                    })
+                });
+
+                const result = await response.json();
+
+                if (!response.ok || !result.success) {
+                    alert(result.message || 'Unable to add item to cart.');
+                    return;
+                }
+
+                window.location.href = '/cart';
+            } catch (error) {
+                console.error(error);
+                alert('Failed to add item to cart.');
+            }
+        });
+    </script>
 </body>
 </html>
