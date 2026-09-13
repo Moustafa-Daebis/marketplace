@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
     <title>Marketplace</title>
     <style>
         * { box-sizing: border-box; }
@@ -166,13 +167,30 @@
             <a th:href="@{/}">Home</a>
             <a th:href="@{/items}">Items</a>
             <a th:href="@{/add-item}">Sell</a>
-            <th:block th:if="${loggedIn}">
-                <span class="user-pill" th:text="${currentUserName} ?: 'User'">User</span>
-                <form th:action="@{/logout}" method="post" style="display:inline; margin:0;">
-                    <button class="logout-btn" type="submit">Logout</button>
-                </form>
-            </th:block>
-            <a th:unless="${loggedIn}" th:href="@{/login}">Login</a>
+            <a th:href="@{/cart}">Cart</a>
+
+            <div class="profile-menu-container">
+                <button class="profile-button" type="button" aria-label="Profile menu">
+                    <span class="icon">👤</span>
+                    <span th:text="${loggedIn ? user.firstName : 'Profile'}">Profile</span>
+                </button>
+                <div class="profile-menu" role="menu">
+                    <a th:href="@{/profile}" class="placeholder" role="menuitem">My Profile</a>
+                    <a href="#" class="placeholder" role="menuitem">Saved Items</a>
+                    <a href="#" class="placeholder" role="menuitem">Orders</a>
+                    <a href="#" class="placeholder" role="menuitem">Settings</a>
+
+                    <div class="divider"></div>
+                    <th:block th:if="${loggedIn}">
+                        <form th:action="@{/logout}" method="post" style="margin:0;">
+                            <button class="logout-btn" type="submit">Logout</button>
+                        </form>
+                    </th:block>
+                    <th:block th:unless="${loggedIn}">
+                        <a th:href="@{/login}" class="logout-btn" style="display:block; text-decoration:none; text-align:left;">Login</a>
+                    </th:block>
+                </div>
+            </div>
         </div>
     </nav>
 

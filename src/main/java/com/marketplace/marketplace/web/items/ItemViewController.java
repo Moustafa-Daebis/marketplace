@@ -1,7 +1,6 @@
 package com.marketplace.marketplace.web.items;
 
 import com.marketplace.marketplace.cart.CartDto;
-import com.marketplace.marketplace.cart.CartEntity;
 import com.marketplace.marketplace.cart.CartService;
 import com.marketplace.marketplace.item.ItemDto;
 import com.marketplace.marketplace.item.ItemService;
