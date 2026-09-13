@@ -1,5 +1,6 @@
 package com.marketplace.marketplace.cartitem;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 public class CartItemDto {
@@ -7,14 +8,20 @@ public class CartItemDto {
     private UUID cartId;
     private UUID itemId;
     private int quantity;
+    private String itemName;
+    private String itemDescription;
+    private BigDecimal price;
 
     public CartItemDto() {
     }
 
-    public CartItemDto(UUID cartId, UUID itemId, int quantity) {
+    public CartItemDto(UUID cartId, UUID itemId, int quantity, String itemName, String itemDescription, BigDecimal price) {
         this.cartId = cartId;
         this.itemId = itemId;
         this.quantity = quantity;
+        this.itemName = itemName;
+        this.itemDescription = itemDescription;
+        this.price = price;
     }
 
     public static CartItemDto fromEntity(CartItemEntity cartItem) {
@@ -25,7 +32,10 @@ public class CartItemDto {
         return new CartItemDto(
                 cartItem.getCart() != null ? cartItem.getCart().getId() : null,
                 cartItem.getItem() != null ? cartItem.getItem().getId() : null,
-                cartItem.getQuantity()
+                cartItem.getQuantity(),
+                cartItem.getItem() != null ? cartItem.getItem().getName() : null,
+                cartItem.getItem() != null ? cartItem.getItem().getDescription() : null,
+                cartItem.getItem() != null ? cartItem.getItem().getPrice() : null
         );
     }
 
