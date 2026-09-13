@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${item.name} + ' | Item Details'">Item Details</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f4f6;
+            color: #111827;
+        }
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 24px;
+        }
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 32px;
+            box-shadow: 0 10px 30px rgba(17, 24, 39, 0.08);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        h1 {
+            margin-top: 0;
+            font-size: 2rem;
+        }
+        .price {
+            font-size: 1.75rem;
+            color: #059669;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .meta {
+            color: #4b5563;
+            line-height: 1.7;
+        }
+        .label {
+            font-weight: 700;
+            color: #111827;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <a class="back-link" th:href="@{/items}">← Back to items</a>
+
+            <h1 th:text="${item.name}">Item name</h1>
+
+            <div class="price">
+                <span th:text="${item.price}">0.00</span>
+            </div>
+
+            <div class="meta">
+                <p>
+                    <span class="label">Description:</span>
+                    <span th:text="${item.description}">Item description</span>
+                </p>
+
+                <p>
+                    <span class="label">Seller ID:</span>
+                    <span th:text="${item.sellerId}">seller-id</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

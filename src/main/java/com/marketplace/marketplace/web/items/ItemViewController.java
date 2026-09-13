@@ -7,8 +7,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 public class ItemViewController {
@@ -34,5 +37,18 @@ public class ItemViewController {
     public String addItem(Model model, Authentication authentication) {
         authenticationViewService.addAuthenticationModel(model, authentication);
         return "add-item";
+    }
+
+    @GetMapping("/items/{id}")
+    public String itemDetails(Model model, Authentication authentication, @PathVariable("id") UUID itemId) {
+
+        authenticationViewService.addAuthenticationModel(model, authentication);
+        Optional<ItemDto> item = itemService.getItemById(itemId);
+        if(item.isPresent()) {
+            model.addAttribute("item", item.get());
+        } else {
+            model.addAttribute("errorMessage", "Item not found");
+        }
+        return "item-details";
     }
 }
