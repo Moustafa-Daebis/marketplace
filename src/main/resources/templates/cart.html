@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f4f6;
+            color: #111827;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 24px;
+        }
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(17, 24, 39, 0.08);
+        }
+        h1 {
+            margin-top: 0;
+        }
+        .cart-list {
+            display: grid;
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .cart-item {
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 18px;
+            background: #fafafa;
+        }
+        .item-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 0 0 8px;
+        }
+        .item-description {
+            color: #4b5563;
+            margin: 0 0 10px;
+        }
+        .item-meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            color: #374151;
+        }
+        .empty {
+            color: #6b7280;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Your Cart</h1>
+
+            <div th:if="${#lists.isEmpty(cartItems)}" class="empty">
+                Your cart is empty.
+            </div>
+
+            <div th:unless="${#lists.isEmpty(cartItems)}" class="cart-list">
+                <div th:each="item : ${cartItems}" class="cart-item">
+                    <h2 class="item-name" th:text="${item.itemName}">Item name</h2>
+                    <p class="item-description" th:text="${item.itemDescription}">Description</p>
+
+                    <div class="item-meta">
+                        <span><strong>Quantity:</strong> <span th:text="${item.quantity}">1</span></span>
+                        <span><strong>Price:</strong> <span th:text="${item.price}">0.00</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

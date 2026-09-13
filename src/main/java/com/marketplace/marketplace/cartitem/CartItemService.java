@@ -66,4 +66,15 @@ public class CartItemService {
                 .toList();
     }
 
+    public List<CartItemDto> getCartItemsByUserId(UUID userId) {
+        if (userId == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User id is required");
+        }
+
+        return cartItemRepository.findByUserId(userId)
+                .stream()
+                .map(CartItemDto::fromEntity)
+                .toList();
+    }
+
 }

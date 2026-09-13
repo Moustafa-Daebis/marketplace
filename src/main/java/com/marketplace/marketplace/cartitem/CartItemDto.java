@@ -62,4 +62,16 @@ public class CartItemDto {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public String getItemDescription() {
+        return itemDescription;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
 }
