@@ -39,3 +39,5 @@ build/
 # Ignore the environment files
 .env
 /logs/marketplace.log
+/logs/marketplace.log.*
+/logs/marketplace.log.*.gz
