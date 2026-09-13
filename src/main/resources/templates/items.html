@@ -211,40 +211,25 @@
             </div>
         </nav>
 
-        <div id="items-container" class="grid"></div>
-    </div>
+            <div id="items-container" class="grid">
+                <div th:if="${#lists.isEmpty(items)}">
+                    No items available.
+                </div>
 
-    <script>
-        async function loadItems() {
-            const container = document.getElementById('items-container');
+                <div th:each="item : ${items}" class="item-card">
+                    <h3 th:text="${item.name}">Item title</h3>
+                    <p th:text="${item.description}">Description</p>
+                    <p>
+                        <strong>Price:</strong>
+                        <span th:text="${item.price}">0.00</span>
+                    </p>
+                    <p th:if="${item.sellerId != null}">
+                        <strong>Seller:</strong>
+                        <span th:text="${item.sellerId}">Seller</span>
+                    </p>
+                </div>
+            </div>
+        </div>
 
-            try {
-                const response = await fetch('/api/items');
-                const result = await response.json();
-                const items = result && Array.isArray(result.data) ? result.data : [];
-
-                if (!items.length) {
-                    container.innerHTML = '<div class="empty-state">No items available.</div>';
-                    return;
-                }
-
-                container.innerHTML = items.map(item => `
-                    <div class="card">
-                        <div class="badge">Item</div>
-                        <h3>${item.name || 'Untitled item'}</h3>
-                        <p>${item.description || 'No description provided.'}</p>
-                        <div class="meta">Seller ID: ${item.sellerId || 'N/A'}</div>
-                        <div class="meta">Item ID: ${item.id || 'N/A'}</div>
-                        <a class="btn" href="#">View details</a>
-                    </div>
-                `).join('');
-            } catch (error) {
-                container.innerHTML = '<div class="empty-state">Failed to load items.</div>';
-                console.error('Error loading items:', error);
-            }
-        }
-
-        loadItems();
-    </script>
 </body>
 </html>
