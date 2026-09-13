@@ -19,6 +19,7 @@ public class ItemDto {
         this.name = name;
         this.description = description;
         this.sellerId = sellerId;
+        this.price = price;
     }
 
     public static ItemDto fromEntity(ItemEntity item) {
