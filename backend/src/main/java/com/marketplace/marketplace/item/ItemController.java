@@ -1,8 +1,6 @@
 package com.marketplace.marketplace.item;
 
 import com.marketplace.marketplace.user.ApiResponse;
-import com.marketplace.marketplace.user.UserDto;
-import com.marketplace.marketplace.user.UserEntity;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

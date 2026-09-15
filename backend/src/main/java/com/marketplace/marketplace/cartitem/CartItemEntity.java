@@ -3,11 +3,8 @@ package com.marketplace.marketplace.cartitem;
 import com.marketplace.marketplace.cart.CartEntity;
 import com.marketplace.marketplace.item.ItemEntity;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
