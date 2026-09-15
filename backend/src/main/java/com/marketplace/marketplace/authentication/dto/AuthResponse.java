@@ -9,7 +9,8 @@ import lombok.Setter;
 import java.util.UUID;
 
 /**
- * Response returned after /login and /register. For server-side (form) login the server maintains an HTTP session; no JWT token is issued.
+ * Returned to the React app for both /login and /register.
+ * The frontend should store "token" (e.g. in memory or an httpOnly-cookie
  * equivalent) and send it as: Authorization: Bearer <token>
  */
 @Getter
@@ -23,4 +24,6 @@ public class AuthResponse {
     private String lastName;
     private String email;
     private String role;
+    private String token;
+    private String tokenType;
 }
