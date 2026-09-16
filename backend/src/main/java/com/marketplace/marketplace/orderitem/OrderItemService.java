@@ -3,6 +3,7 @@ package com.marketplace.marketplace.orderitem;
 import com.marketplace.marketplace.user.UserDto;
 import com.marketplace.marketplace.user.UserEntity;
 import com.marketplace.marketplace.user.UserService;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -41,9 +42,31 @@ public class OrderItemService {
         }
 
     }
+    @Transactional
+    public OrderItemDto changeOrderItemStatus(UUID orderItemId,String userEmail, String status){
 
-    public OrderItemDto changeOrderItemStatus(UUID orderItemId, UUID user, String status, Authentication authentication){
+        Optional<UserDto> user = userService.getUserByEmail(userEmail);
+        if(!user.isPresent()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+        }
+        Optional<UUID> itemSellerId = orderItemRepository.findSellerIdByOrderItemId(orderItemId);
+        if(!itemSellerId.isPresent()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Item not found");
+        }
+        if(!itemSellerId.get().equals(user.get().getId())){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not authorized to change the status of this order");
+        }
+        Optional<OrderItemEntity> orderItem = orderItemRepository.findById(orderItemId);
 
-        return null;
+        if(orderItem.isPresent()){
+            orderItem.get().setStatus(status);
+            return OrderItemDto.fromEntity(orderItem.get());
+        }else{
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error from backend");
+        }
+
+
+
+
     }
 }

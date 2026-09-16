@@ -1,13 +1,12 @@
 package com.marketplace.marketplace.orderitem;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/orderitems")
@@ -24,6 +23,13 @@ public class OrderItemController {
         List<OrderItemDto> list = orderItemService.getAllOrderItemDTOSByEmail(authentication.getName());
 
         return list;
+    }
+
+    @PatchMapping
+    public OrderItemDto changeOrderItemStatus(Authentication authentication, @Valid @RequestBody ChangeOrderItemStatusRequest request){
+        OrderItemDto orderItemDto = orderItemService.changeOrderItemStatus(request.getOrderItemId(),authentication.getName(),request.getStatus());
+
+        return orderItemDto;
     }
 
 }
