@@ -3,6 +3,7 @@ package com.marketplace.marketplace.cart;
 import com.marketplace.marketplace.user.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -20,9 +21,9 @@ public class CartController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<CartDto>> createCart(@jakarta.validation.Valid @RequestBody CreateCartRequest request) {
+    public ResponseEntity<ApiResponse<CartDto>> createCart(Authentication authentication) {
         try {
-            CartDto created = cartService.createCart(request.getUserId());
+            CartDto created = cartService.createCart(authentication.getName());
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(new ApiResponse<>(true, "Cart created successfully", created));
         } catch (ResponseStatusException e) {

@@ -20,15 +20,15 @@ public class CartService {
         this.userRepository = userRepository;
     }
 
-    public CartDto createCart(UUID userId) {
-        if (userId == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User id is required");
+    public CartDto createCart(String userEmail) {
+        if(userEmail==null){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User Email is required");
         }
 
-        UserEntity user = userRepository.findById(userId)
+        UserEntity user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
-        if (cartRepository.findByUserId(userId).isPresent()) {
+        if (cartRepository.findByUserId(user.getId()).isPresent()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Cart already exists for user");
         }
 
