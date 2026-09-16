@@ -2,6 +2,7 @@ package com.marketplace.marketplace.item;
 
 import com.marketplace.marketplace.user.UserEntity;
 import com.marketplace.marketplace.user.UserRepository;
+import com.marketplace.marketplace.user.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -16,13 +17,19 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
+    private final UserService userService;
 
-    public ItemService(ItemRepository itemRepository, UserRepository userRepository) {
+    public ItemService(ItemRepository itemRepository, UserRepository userRepository, UserService userService) {
         this.itemRepository = itemRepository;
         this.userRepository = userRepository;
+        this.userService = userService;
     }
 
-    public ItemDto createItem(String name, String description, UUID sellerId, BigDecimal price) {
+    public ItemDto createItem(String userEmail,String name, String description,  BigDecimal price) {
+        if(userEmail==null ||userEmail.isBlank()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User does not exist");
+        }
+
         if (name == null || name.isBlank()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Item name is required");
         }
@@ -30,6 +37,8 @@ public class ItemService {
         if (price == null || price.compareTo(BigDecimal.ZERO) <= 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Price is required and must be a positive value");
         }
+
+        UUID sellerId = userService.getUserByEmail(userEmail).get().getId();
 
         if (sellerId == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Seller id is required");

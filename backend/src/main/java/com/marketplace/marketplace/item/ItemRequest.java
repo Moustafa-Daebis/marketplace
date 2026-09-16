@@ -13,19 +13,15 @@ public class ItemRequest {
 
     private String description;
 
-    @NotNull(message = "Seller id is required")
-    private UUID sellerId;
-
     @NotNull(message = "Price is required")
     private BigDecimal price;
 
     public ItemRequest() {
     }
 
-    public ItemRequest(String name, String description, UUID sellerId, BigDecimal price) {
+    public ItemRequest(String name, String description,  BigDecimal price) {
         this.name = name;
         this.description = description;
-        this.sellerId = sellerId;
         this.price = price;
     }
 
@@ -43,14 +39,6 @@ public class ItemRequest {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public UUID getSellerId() {
-        return sellerId;
-    }
-
-    public void setSellerId(UUID sellerId) {
-        this.sellerId = sellerId;
     }
 
     public BigDecimal getPrice() {

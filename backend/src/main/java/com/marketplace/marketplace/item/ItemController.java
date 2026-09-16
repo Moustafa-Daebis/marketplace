@@ -4,6 +4,7 @@ import com.marketplace.marketplace.user.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -21,12 +22,11 @@ public class ItemController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<ItemDto>> createItem(@Valid @RequestBody ItemRequest request) {
+    public ResponseEntity<ApiResponse<ItemDto>> createItem(@Valid @RequestBody ItemRequest request, Authentication authentication) {
         try {
-            ItemDto createdItem = itemService.createItem(
+            ItemDto createdItem = itemService.createItem(authentication.getName(),
                     request.getName(),
                     request.getDescription(),
-                    request.getSellerId(),
                     request.getPrice()
             );
 
