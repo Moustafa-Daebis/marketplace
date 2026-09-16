@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.RecursiveTask;
 
 @Service
 public class OrderService {
@@ -59,7 +60,7 @@ public class OrderService {
         OrderEntity order = new OrderEntity(cart.getUser(), totalAmount);
         orderRepository.save(order);
         List<OrderItemEntity> orderItems = cartItems.stream()
-                .map(cartItem -> new OrderItemEntity(order,itemRepository.findById(cartItem.getItem().getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Item not found")), cartItem.getQuantity(),new BigDecimal(0)))
+                .map(cartItem -> new OrderItemEntity(order.getId(),order,itemRepository.findById(cartItem.getItem().getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Item not found")), cartItem.getQuantity(),new BigDecimal(0),order.getStatus()))
                 .toList();
         orderItemRepository.saveAll(orderItems);
 

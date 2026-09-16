@@ -13,15 +13,13 @@ import java.util.UUID;
 @Table(name = "order_items")
 public class OrderItemEntity {
 
-    @EmbeddedId
-    private OrderItemId id;
+    @Id
+    private UUID id;
 
-    @MapsId("orderId")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
     private OrderEntity order;
 
-    @MapsId("itemId")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id", nullable = false)
     private ItemEntity item;
@@ -32,6 +30,9 @@ public class OrderItemEntity {
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
+    @Column(name="status",nullable = false)
+    private String status;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
@@ -41,30 +42,22 @@ public class OrderItemEntity {
     public OrderItemEntity() {
     }
 
-    public OrderItemEntity(OrderEntity order, ItemEntity item, int quantity, BigDecimal price) {
+    public OrderItemEntity( UUID id, OrderEntity order, ItemEntity item, int quantity, BigDecimal price,String status) {
+        this.id = id;
         this.order = order;
         this.item = item;
         this.quantity = quantity;
         this.price = price;
-        this.id = new OrderItemId(
-                order != null ? order.getId() : null,
-                item != null ? item.getId() : null
-        );
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
+        this.status = status;
     }
+
 
     @PrePersist
     protected void onCreate() {
         if (this.createdAt == null) {
             this.createdAt = LocalDateTime.now();
         }
-        if (this.id == null) {
-            this.id = new OrderItemId(
-                    this.order != null ? this.order.getId() : null,
-                    this.item != null ? this.item.getId() : null
-            );
-        }
+
         this.updatedAt = LocalDateTime.now();
     }
 
@@ -73,11 +66,11 @@ public class OrderItemEntity {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public OrderItemId getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(OrderItemId id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -87,10 +80,6 @@ public class OrderItemEntity {
 
     public void setOrder(OrderEntity order) {
         this.order = order;
-        if (this.id == null) {
-            this.id = new OrderItemId();
-        }
-        this.id.setOrderId(order != null ? order.getId() : null);
     }
 
     public ItemEntity getItem() {
@@ -99,10 +88,6 @@ public class OrderItemEntity {
 
     public void setItem(ItemEntity item) {
         this.item = item;
-        if (this.id == null) {
-            this.id = new OrderItemId();
-        }
-        this.id.setItemId(item != null ? item.getId() : null);
     }
 
     public int getQuantity() {
@@ -137,50 +122,11 @@ public class OrderItemEntity {
         this.updatedAt = updatedAt;
     }
 
-    @Embeddable
-    public static class OrderItemId implements Serializable {
+    public String getStatus() {
+        return status;
+    }
 
-        @Column(name = "order_id")
-        private UUID orderId;
-
-        @Column(name = "item_id")
-        private UUID itemId;
-
-        public OrderItemId() {
-        }
-
-        public OrderItemId(UUID orderId, UUID itemId) {
-            this.orderId = orderId;
-            this.itemId = itemId;
-        }
-
-        public UUID getOrderId() {
-            return orderId;
-        }
-
-        public void setOrderId(UUID orderId) {
-            this.orderId = orderId;
-        }
-
-        public UUID getItemId() {
-            return itemId;
-        }
-
-        public void setItemId(UUID itemId) {
-            this.itemId = itemId;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            OrderItemId that = (OrderItemId) o;
-            return Objects.equals(orderId, that.orderId) && Objects.equals(itemId, that.itemId);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(orderId, itemId);
-        }
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
