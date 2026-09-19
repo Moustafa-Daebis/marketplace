@@ -9,11 +9,14 @@ import com.marketplace.marketplace.authentication.exception.EmailAlreadyExistsEx
 import com.marketplace.marketplace.authentication.repository.UserRepositoryAuthorization;
 import com.marketplace.marketplace.config.JwtService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -63,6 +66,20 @@ public class AuthService {
         String token = jwtService.generateToken(user);
 
         return buildAuthResponse(user, token);
+    }
+
+    public void changePassword(String email,String currentPassword,String newPassword){
+
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new BadCredentialsException("Invalid User"));
+
+        if(!passwordEncoder.matches(currentPassword,user.getPassword())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Incorrect password");
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
     }
 
     private AuthResponse buildAuthResponse(User user, String token) {

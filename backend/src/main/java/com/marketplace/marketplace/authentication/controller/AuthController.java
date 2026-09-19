@@ -1,17 +1,17 @@
 package com.marketplace.marketplace.authentication.controller;
 
 import com.marketplace.marketplace.authentication.dto.AuthResponse;
+import com.marketplace.marketplace.authentication.dto.ChangePasswordRequest;
 import com.marketplace.marketplace.authentication.dto.LoginRequest;
 import com.marketplace.marketplace.authentication.dto.RegisterRequest;
 import com.marketplace.marketplace.authentication.service.AuthService;
+import jakarta.persistence.Entity;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Only two endpoints, as requested, for the React frontend to consume:
@@ -37,5 +37,11 @@ public class AuthController {
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
         AuthResponse response = authService.login(request);
         return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("/changePassword")
+    public ResponseEntity<Void> changePassword(@Valid @RequestBody ChangePasswordRequest request , Authentication authentication){
+        authService.changePassword(authentication.getName(),request.currentPassword(),request.newPassword());
+        return ResponseEntity.noContent().build();
     }
 }
