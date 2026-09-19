@@ -36,8 +36,9 @@ public class CartService {
         return CartDto.fromEntity(cartRepository.save(cart));
     }
 
-    public void deleteCart(UUID id) {
-        CartEntity cart = cartRepository.findById(id)
+    public void deleteCart(String userEmail) {
+
+        CartEntity cart = cartRepository.findByUserEmail(userEmail)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cart not found"));
         cartRepository.delete(cart);
     }

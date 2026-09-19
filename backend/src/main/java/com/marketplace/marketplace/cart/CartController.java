@@ -54,10 +54,10 @@ public class CartController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<Void>> deleteCart(@PathVariable UUID id) {
+    @DeleteMapping
+    public ResponseEntity<ApiResponse<Void>> deleteCart(Authentication authentication) {
         try {
-            cartService.deleteCart(id);
+            cartService.deleteCart(authentication.getName());
             return ResponseEntity.ok(new ApiResponse<>(true, "Cart deleted successfully", null));
         } catch (ResponseStatusException e) {
             return ResponseEntity.status(e.getStatusCode())
