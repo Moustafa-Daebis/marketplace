@@ -13,15 +13,14 @@ import java.util.UUID;
 @Table(name = "cart_items")
 public class CartItemEntity {
 
-    @EmbeddedId
-    private CartItemId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
-    @MapsId("cartId")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id", nullable = false)
     private CartEntity cart;
 
-    @MapsId("itemId")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id", nullable = false)
     private ItemEntity item;
@@ -42,10 +41,6 @@ public class CartItemEntity {
         this.cart = cart;
         this.item = item;
         this.quantity = quantity;
-        this.id = new CartItemId(
-                cart != null ? cart.getId() : null,
-                item != null ? item.getId() : null
-        );
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
@@ -55,12 +50,6 @@ public class CartItemEntity {
         if (this.createdAt == null) {
             this.createdAt = LocalDateTime.now();
         }
-        if (this.id == null) {
-            this.id = new CartItemId(
-                    this.cart != null ? this.cart.getId() : null,
-                    this.item != null ? this.item.getId() : null
-            );
-        }
         this.updatedAt = LocalDateTime.now();
     }
 
@@ -69,13 +58,10 @@ public class CartItemEntity {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public CartItemId getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(CartItemId id) {
-        this.id = id;
-    }
 
     public CartEntity getCart() {
         return cart;
@@ -83,10 +69,6 @@ public class CartItemEntity {
 
     public void setCart(CartEntity cart) {
         this.cart = cart;
-        if (this.id == null) {
-            this.id = new CartItemId();
-        }
-        this.id.setCartId(cart != null ? cart.getId() : null);
     }
 
     public ItemEntity getItem() {
@@ -95,10 +77,6 @@ public class CartItemEntity {
 
     public void setItem(ItemEntity item) {
         this.item = item;
-        if (this.id == null) {
-            this.id = new CartItemId();
-        }
-        this.id.setItemId(item != null ? item.getId() : null);
     }
 
     public int getQuantity() {
@@ -125,50 +103,4 @@ public class CartItemEntity {
         this.updatedAt = updatedAt;
     }
 
-    @Embeddable
-    public static class CartItemId implements Serializable {
-
-        @Column(name = "cart_id")
-        private UUID cartId;
-
-        @Column(name = "item_id")
-        private UUID itemId;
-
-        public CartItemId() {
-        }
-
-        public CartItemId(UUID cartId, UUID itemId) {
-            this.cartId = cartId;
-            this.itemId = itemId;
-        }
-
-        public UUID getCartId() {
-            return cartId;
-        }
-
-        public void setCartId(UUID cartId) {
-            this.cartId = cartId;
-        }
-
-        public UUID getItemId() {
-            return itemId;
-        }
-
-        public void setItemId(UUID itemId) {
-            this.itemId = itemId;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            CartItemId that = (CartItemId) o;
-            return Objects.equals(cartId, that.cartId) && Objects.equals(itemId, that.itemId);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(cartId, itemId);
-        }
-    }
 }
