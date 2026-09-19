@@ -1,7 +1,10 @@
 package com.marketplace.marketplace.user;
 
+import com.marketplace.marketplace.authentication.entity.User;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,5 +47,11 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponse<>(false, "Failed to retrieve users", null));
             }
+    }
+    @PatchMapping
+    public ResponseEntity<ApiResponse<UserDto>> modifyUserDetails(@Valid @RequestBody ChangeUserDetailsRequest request, Authentication authentication){
+        UserDto user = userService.modifyUserDetails(request,authentication.getName());
+
+        return ResponseEntity.ok(new ApiResponse<>(true, "User details modified successfully", user));
     }
 }
