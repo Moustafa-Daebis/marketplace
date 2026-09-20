@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BackgroundAgentGlobalSettings">
+    <option name="selectedModelId" value="auto" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5545d558-a0b4-4334-a20d-75e1255e85a0" name="Changes" comment="project restructure">
+      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gitattributes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/backend/mvnw" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/backend/mvnw.cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/MarketplaceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/MarketplaceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/authentication/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/authentication/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/authentication/dto/AuthResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/authentication/dto/AuthResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/authentication/dto/LoginRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/authentication/dto/LoginRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/authentication/dto/RegisterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/authentication/dto/RegisterRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/authentication/entity/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/authentication/entity/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/authentication/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/authentication/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/authentication/exception/EmailAlreadyExistsException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/authentication/exception/EmailAlreadyExistsException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/authentication/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/authentication/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/authentication/repository/UserRepositoryAuthorization.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/authentication/repository/UserRepositoryAuthorization.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/authentication/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/authentication/service/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/authentication/service/CustomUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/authentication/service/CustomUserDetailsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/cart/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/cart/CartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/cart/CartDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/cart/CartDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/cart/CartEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/cart/CartEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/cart/CartRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/cart/CartRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/cart/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/cart/CartService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/cart/CreateCartRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/cart/CreateCartRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/cartitem/CartItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/cartitem/CartItemController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/cartitem/CartItemDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/cartitem/CartItemDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/cartitem/CartItemEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/cartitem/CartItemEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/cartitem/CartItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/cartitem/CartItemRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/cartitem/CartItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/cartitem/CartItemService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/cartitem/CreateCartItemRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/cartitem/CreateCartItemRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/item/ItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/item/ItemController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/item/ItemDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/item/ItemDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/item/ItemEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/item/ItemEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/item/ItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/item/ItemRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/item/ItemRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/item/ItemRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/item/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/item/ItemService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/order/CreateOrderRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/order/CreateOrderRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/order/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/order/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/order/OrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/order/OrderDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/order/OrderEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/order/OrderEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/order/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/order/OrderRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/order/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/order/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/orderitem/OrderItemEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/orderitem/OrderItemEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/orderitem/OrderItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/orderitem/OrderItemRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/user/ApiResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/user/ApiResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/user/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/user/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/user/UserDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/user/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/user/UserEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/user/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/user/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/user/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/user/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/web/authentication/AuthenticationViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/web/authentication/AuthenticationViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/web/authentication/AuthenticationViewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/web/authentication/AuthenticationViewService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/web/cart/CartViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/web/cart/CartViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/web/home/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/web/home/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/web/home/HomeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/web/home/HomeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/web/items/ItemViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/web/items/ItemViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/marketplace/marketplace/web/profile/ProfileViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/marketplace/marketplace/web/profile/ProfileViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-prod.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application-prod.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/common.css" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/static/css/common.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/favicon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/static/favicon.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/add-item.html" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/templates/add-item.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/templates/cart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/item-details.html" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/templates/item-details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/items.html" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/templates/items.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/templates/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/templates/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/marketplace/marketplace/MarketplaceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/test/java/com/marketplace/marketplace/MarketplaceApplicationTests.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_E:/projects/marketplace" value="3IiwQ0twMugXvSiFsGaLtFeIPKD" />
+    </persistenceIdMap>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="HTML File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="refactor/items" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Moustafa-Daebis&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Moustafa-Daebis/marketplace.git&quot;,
+    &quot;accountId&quot;: &quot;1a216c5b-eaa5-40c9-a16b-c99f0fc6e89b&quot;
+  }
+}</component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="3IiwQ0twMugXvSiFsGaLtFeIPKD" />
+  <component name="ProjectSessionTemplates">
+    <option name="inlineTemplate">
+      <template>
+        <option name="modeId" value="InlineAgent" />
+        <option name="model">
+          <model>
+            <option name="modelType" value="builtin_id" />
+            <option name="modelValue" value="auto" />
+          </model>
+        </option>
+        <option name="targetType" value="LOCAL" />
+      </template>
+    </option>
+    <option name="panelTemplate">
+      <template>
+        <option name="modeId" value="Agent" />
+        <option name="model">
+          <model>
+            <option name="modelType" value="builtin_id" />
+            <option name="modelValue" value="auto" />
+          </model>
+        </option>
+        <option name="targetType" value="BACKGROUND" />
+        <option name="worktreeMode" value="WORKSPACE" />
+      </template>
+    </option>
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Maven.marketplace [clean].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.MarketplaceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;copilot.chat.legacySessionMetadata.migrated&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/projects/marketplace&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.web.browsers&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\projects\marketplace\backend" />
+      <recent name="E:\projects\marketplace\src\main\resources\static" />
+      <recent name="E:\projects\marketplace" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.marketplace.marketplace.authentication.controller" />
+      <recent name="com.marketplace.marketplace.home" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="MarketplaceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <option name="envFilePaths">
+        <option value="$PROJECT_DIR$/.env" />
+      </option>
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UnknownPolicyInFreeMode" />
+      <module name="marketplace" />
+      <selectedOptions>
+        <option name="environmentVariables" />
+      </selectedOptions>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.marketplace.marketplace.MarketplaceApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.marketplace.marketplace.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.MarketplaceApplication" />
+        <item itemvalue="Spring Boot.MarketplaceApplication" />
+        <item itemvalue="Spring Boot.MarketplaceApplication" />
+        <item itemvalue="Spring Boot.MarketplaceApplication" />
+        <item itemvalue="Spring Boot.MarketplaceApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.31033.145" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5545d558-a0b4-4334-a20d-75e1255e85a0" name="Changes" comment="" />
+      <created>1788260677005</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1788260677005</updated>
+    </task>
+    <task id="LOCAL-00001" summary="fixes">
+      <option name="closed" value="true" />
+      <created>1788954448539</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1788954448539</updated>
+    </task>
+    <task id="LOCAL-00002" summary="fixes">
+      <option name="closed" value="true" />
+      <created>1788954542404</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1788954542404</updated>
+    </task>
+    <task id="LOCAL-00003" summary="project restructure">
+      <option name="closed" value="true" />
+      <created>1788954889261</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1788954889261</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add README.md">
+      <option name="closed" value="true" />
+      <created>1788955866106</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1788955866106</updated>
+    </task>
+    <task id="LOCAL-00005" summary="modify README.md">
+      <option name="closed" value="true" />
+      <created>1788955976398</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1788955976398</updated>
+    </task>
+    <task id="LOCAL-00006" summary="modify README.md">
+      <option name="closed" value="true" />
+      <created>1788956025012</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1788956025012</updated>
+    </task>
+    <task id="LOCAL-00007" summary="modify README.md">
+      <option name="closed" value="true" />
+      <created>1788956051735</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1788956051735</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Migration from JWT authentication to JSESSION authentication and views modifications">
+      <option name="closed" value="true" />
+      <created>1788960001271</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1788960001271</updated>
+    </task>
+    <task id="LOCAL-00009" summary="initial order and order_item packages and createOrder endpoint">
+      <option name="closed" value="true" />
+      <created>1789035827269</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1789035827269</updated>
+    </task>
+    <task id="LOCAL-00010" summary="fixes to createOrder endpoint">
+      <option name="closed" value="true" />
+      <created>1789036785109</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1789036785109</updated>
+    </task>
+    <task id="LOCAL-00011" summary="add web icon">
+      <option name="closed" value="true" />
+      <created>1789248043179</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1789248043179</updated>
+    </task>
+    <task id="LOCAL-00012" summary="fixes to ItemEntity">
+      <option name="closed" value="true" />
+      <created>1789249390254</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1789249390254</updated>
+    </task>
+    <task id="LOCAL-00013" summary="fixes to CartItemEntity">
+      <option name="closed" value="true" />
+      <created>1789286806201</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1789286806201</updated>
+    </task>
+    <task id="LOCAL-00014" summary="add views restructure">
+      <option name="closed" value="true" />
+      <created>1789288856423</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1789288856423</updated>
+    </task>
+    <task id="LOCAL-00015" summary="modification to Items">
+      <option name="closed" value="true" />
+      <created>1789290396131</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1789290396131</updated>
+    </task>
+    <task id="LOCAL-00016" summary="ItemDto fix">
+      <option name="closed" value="true" />
+      <created>1789291325558</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1789291325558</updated>
+    </task>
+    <task id="LOCAL-00017" summary="add item-details webpage">
+      <option name="closed" value="true" />
+      <created>1789292042189</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1789292042189</updated>
+    </task>
+    <task id="LOCAL-00018" summary="modify index.html">
+      <option name="closed" value="true" />
+      <created>1789294397849</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1789294397849</updated>
+    </task>
+    <task id="LOCAL-00019" summary="add profile page &amp; modifications to userDto">
+      <option name="closed" value="true" />
+      <created>1789299073579</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1789299073579</updated>
+    </task>
+    <task id="LOCAL-00020" summary="modify gitignore">
+      <option name="closed" value="true" />
+      <created>1789299233183</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1789299233183</updated>
+    </task>
+    <task id="LOCAL-00021" summary="modify gitignore">
+      <option name="closed" value="true" />
+      <created>1789299279992</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1789299279992</updated>
+    </task>
+    <task id="LOCAL-00022" summary="add cart webpage and modification to CartItem package">
+      <option name="closed" value="true" />
+      <created>1789305774949</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1789305774949</updated>
+    </task>
+    <task id="LOCAL-00023" summary="changes to itemViews">
+      <option name="closed" value="true" />
+      <created>1789332497589</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1789332497589</updated>
+    </task>
+    <task id="LOCAL-00024" summary="major changes to views">
+      <option name="closed" value="true" />
+      <created>1789334524754</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1789334524754</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fixes" />
+    <MESSAGE value="add README.md" />
+    <MESSAGE value="modify README.md" />
+    <MESSAGE value="Migration from JWT authentication to JSESSION authentication and views modifications" />
+    <MESSAGE value="initial order and order_item packages and createOrder endpoint" />
+    <MESSAGE value="fixes to createOrder endpoint" />
+    <MESSAGE value="add web icon" />
+    <MESSAGE value="fixes to ItemEntity" />
+    <MESSAGE value="fixes to CartItemEntity" />
+    <MESSAGE value="add views restructure" />
+    <MESSAGE value="modification to Items" />
+    <MESSAGE value="ItemDto fix" />
+    <MESSAGE value="add item-details webpage" />
+    <MESSAGE value="modify index.html" />
+    <MESSAGE value="add profile page &amp; modifications to userDto" />
+    <MESSAGE value="modify gitignore" />
+    <MESSAGE value="add cart webpage and modification to CartItem package" />
+    <MESSAGE value="changes to itemViews" />
+    <MESSAGE value="major changes to views" />
+    <MESSAGE value="project restructure" />
+    <option name="LAST_COMMIT_MESSAGE" value="project restructure" />
+  </component>
+</project>
