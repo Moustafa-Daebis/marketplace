@@ -1,8 +1,8 @@
-import { Button, Center, Stack, Text, Title } from "@mantine/core";
 import { useState } from "react";
 import { useAuth } from "./hooks/useAuth";
 import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
+import { MainPage } from "./pages/MainPage";
 
 function App() {
   const { isAuthenticated, user, logout } = useAuth();
@@ -16,17 +16,7 @@ function App() {
     );
   }
 
-  return (
-    <Center mih="100vh" p="md">
-      <Stack align="center">
-        <Title order={1}>Welcome back</Title>
-        <Text c="dimmed">You are signed in as {user.email}.</Text>
-        <Button variant="light" color="gray" onClick={logout}>
-          Sign out
-        </Button>
-      </Stack>
-    </Center>
-  );
+  return <MainPage user={user} onLogout={logout} />;
 }
 
 export default App;
