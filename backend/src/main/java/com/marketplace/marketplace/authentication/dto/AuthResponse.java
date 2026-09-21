@@ -19,11 +19,21 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class AuthResponse {
-    private UUID id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String role;
+    private UserResponse user;
     private String token;
-    private String tokenType;
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class UserResponse {
+        private UUID id;
+        private String firstName;
+        private String lastName;
+        private String email;
+        private String phoneNumber;
+        private String role;
+        private Boolean isActive;
+    }
 }

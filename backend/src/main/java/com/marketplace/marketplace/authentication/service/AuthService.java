@@ -84,13 +84,16 @@ public class AuthService {
 
     private AuthResponse buildAuthResponse(User user, String token) {
         return AuthResponse.builder()
-                .id(user.getId())
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
-                .email(user.getEmail())
-                .role(user.getRole().name())
+                .user(AuthResponse.UserResponse.builder()
+                        .id(user.getId())
+                        .firstName(user.getFirstName())
+                        .lastName(user.getLastName())
+                        .email(user.getEmail())
+                        .phoneNumber(user.getPhoneNumber())
+                        .role(user.getRole().name())
+                        .isActive(user.getIsActive())
+                        .build())
                 .token(token)
-                .tokenType("Bearer")
                 .build();
     }
 }
