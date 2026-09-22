@@ -23,7 +23,7 @@ export function LoginForm({ onSubmit }) {
         password,
       });
 
-      onSubmit(data.user ?? { email: email.trim() });
+      onSubmit(data.user ?? { email: email.trim() }, data.token);
     } catch (requestError) {
       setError(
         requestError.response?.data?.message ??

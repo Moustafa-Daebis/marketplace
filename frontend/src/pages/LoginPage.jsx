@@ -1,9 +1,16 @@
 import { Anchor, Center, Paper, Stack, Text, Title } from "@mantine/core";
 import { LoginForm } from "../components/LoginForm";
 import { useAuth } from "../hooks/useAuth";
+import { Link, useNavigate } from "react-router-dom";
 
-export function LoginPage({ onRegisterClick }) {
+export function LoginPage() {
   const { login } = useAuth();
+  const navigate = useNavigate();
+
+  function handleLogin(user, token) {
+    login(user, token);
+    navigate("/", { replace: true });
+  }
   return (
     <Center mih="100vh" p="md">
       <Paper withBorder shadow="sm" radius="md" p="xl" w="100%" maw={420}>
@@ -16,10 +23,10 @@ export function LoginPage({ onRegisterClick }) {
               Sign in to continue to your marketplace.
             </Text>
           </div>
-          <LoginForm onSubmit={login} />
+          <LoginForm onSubmit={handleLogin} />
           <Text c="dimmed" size="sm" ta="center">
             New here?{" "}
-            <Anchor component="button" type="button" onClick={onRegisterClick}>
+            <Anchor component={Link} to="/register">
               Create an account
             </Anchor>
           </Text>
