@@ -3,6 +3,7 @@ import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { MainPage } from "./pages/MainPage";
 import { ProfilePage } from "./pages/ProfilePage";
+import { ItemsPage } from "./pages/ItemsPage";
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 
 function ProtectedRoute() {
@@ -37,6 +38,7 @@ function App() {
       <Route element={<ProtectedRoute />}>
         <Route path="/" element={<MainPage />}>
           <Route path="profile" element={<ProfilePage />} />
+          <Route path="items" element={<ItemsPage />} />
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />

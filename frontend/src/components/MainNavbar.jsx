@@ -9,7 +9,7 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import { CartDrawer } from "./CartDrawer";
 
-export function MainNavbar({ onLogout, onHomeClick, onProfileClick }) {
+export function MainNavbar({ onLogout, onHomeClick, onItemsClick, onProfileClick }) {
   const [cartOpened, { open: openCart, close: closeCart }] =
     useDisclosure(false);
 
@@ -23,7 +23,9 @@ export function MainNavbar({ onLogout, onHomeClick, onProfileClick }) {
           </Text>
         </UnstyledButton>
         <Group gap="xs" wrap="wrap">
-          <Button variant="subtle">Items</Button>
+          <Button variant="subtle" onClick={onItemsClick}>
+            Items
+          </Button>
           <Button variant="subtle">Sell</Button>
           <Button variant="subtle" aria-label="Cart" onClick={openCart}>
             <IconShoppingCart size={20} stroke={1.8} />

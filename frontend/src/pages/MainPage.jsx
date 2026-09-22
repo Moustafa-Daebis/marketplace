@@ -19,6 +19,7 @@ export function MainPage() {
         <MainNavbar
           onLogout={handleLogout}
           onHomeClick={() => navigate("/")}
+          onItemsClick={() => navigate("/items")}
           onProfileClick={() => navigate("/profile")}
         />
       </AppShell.Header>
