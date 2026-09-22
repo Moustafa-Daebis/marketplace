@@ -32,7 +32,7 @@ export function RegisterForm({ onSuccess }) {
       setError("");
       setIsSubmitting(true);
       const baseUrl = import.meta.env.VITE_API_URL ?? "";
-      await axios.post(`${baseUrl}/api/auth/register`, {
+      const { data } = await axios.post(`${baseUrl}/api/auth/register`, {
         ...form,
         firstName: form.firstName.trim(),
         lastName: form.lastName.trim(),
@@ -41,7 +41,15 @@ export function RegisterForm({ onSuccess }) {
         role: "USER",
         isActive: true,
       });
-      onSuccess();
+      onSuccess(
+        data.user ?? {
+          firstName: form.firstName.trim(),
+          lastName: form.lastName.trim(),
+          email: form.email.trim(),
+          phoneNumber: form.phoneNumber.trim(),
+        },
+        data.token,
+      );
     } catch (requestError) {
       setError(
         requestError.response?.data?.message ??
