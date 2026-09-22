@@ -1,5 +1,8 @@
 package com.marketplace.marketplace.cart;
 
+import com.marketplace.marketplace.authentication.entity.User;
+import com.marketplace.marketplace.cartitem.CartItemDto;
+import com.marketplace.marketplace.cartitem.CartItemService;
 import com.marketplace.marketplace.user.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -15,9 +19,11 @@ import java.util.UUID;
 public class CartController {
 
     private final CartService cartService;
+    private final CartItemService cartItemService;
 
-    public CartController(CartService cartService) {
+    public CartController(CartService cartService, CartItemService cartItemService) {
         this.cartService = cartService;
+        this.cartItemService = cartItemService;
     }
 
     @PostMapping
@@ -41,6 +47,27 @@ public class CartController {
             Optional<CartDto> dto = cartService.getCartById(id);
             if (dto.isPresent()) {
                 return ResponseEntity.ok(new ApiResponse<>(true, "Cart retrieved successfully", dto.get()));
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new ApiResponse<>(false, "Cart not found", null));
+            }
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode())
+                    .body(new ApiResponse<>(false, e.getReason(), null));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse<>(false, "Failed to retrieve cart", null));
+        }
+    }
+
+    @GetMapping("/items")
+    public ResponseEntity<ApiResponse<List<CartItemDto>>> getCart(Authentication authentication) {
+        try {
+            User user = (User)authentication.getPrincipal();
+            List<CartItemDto> cartItemDtos = cartItemService.getCartItemsByUserId(user.getId());
+
+            if (!cartItemDtos.isEmpty()) {
+                return ResponseEntity.ok(new ApiResponse<>(true, "Cart retrieved successfully", cartItemDtos));
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body(new ApiResponse<>(false, "Cart not found", null));
