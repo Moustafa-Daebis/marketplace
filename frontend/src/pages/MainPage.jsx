@@ -1,5 +1,7 @@
 import { AppShell, Container, Paper, Stack, Text, Title } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { CartDrawer } from "../components/CartDrawer";
 import { MainNavbar } from "../components/MainNavbar";
 import { useAuth } from "../hooks/useAuth";
 
@@ -7,6 +9,8 @@ export function MainPage() {
   const { user, logout } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+  const [cartOpened, { open: openCart, close: closeCart }] =
+    useDisclosure(false);
 
   function handleLogout() {
     logout();
@@ -15,6 +19,7 @@ export function MainPage() {
 
   return (
     <AppShell header={{ height: 64 }} padding="md">
+      <CartDrawer opened={cartOpened} onClose={closeCart} />
       <AppShell.Header>
         <MainNavbar
           onLogout={handleLogout}
@@ -22,6 +27,7 @@ export function MainPage() {
           onItemsClick={() => navigate("/items")}
           onCreateItemClick={() => navigate("/items/create")}
           onProfileClick={() => navigate("/profile")}
+          onCartClick={openCart}
         />
       </AppShell.Header>
       <AppShell.Main>
@@ -36,7 +42,7 @@ export function MainPage() {
               </Stack>
             </Paper>
           ) : (
-            <Outlet />
+            <Outlet context={{ openCart }} />
           )}
         </Container>
       </AppShell.Main>

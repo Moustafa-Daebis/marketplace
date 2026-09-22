@@ -14,7 +14,7 @@ import {
   Title,
 } from "@mantine/core";
 import { IconArrowLeft, IconShoppingCartPlus } from "@tabler/icons-react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
 function formatPrice(price) {
@@ -24,11 +24,14 @@ function formatPrice(price) {
 
 export function ItemPage() {
   const { itemId } = useParams();
+  const { openCart } = useOutletContext();
   const { token } = useAuth();
   const navigate = useNavigate();
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [cartStatus, setCartStatus] = useState({ type: "", message: "" });
+  const [addingToCart, setAddingToCart] = useState(false);
 
   useEffect(() => {
     async function fetchItem() {
@@ -93,8 +96,35 @@ export function ItemPage() {
     return <Text c="dimmed">This item could not be found.</Text>;
   }
 
-  function handleAddToCart() {
-    console.log("Added to cart:", item.name);
+  async function handleAddToCart() {
+    setAddingToCart(true);
+    setCartStatus({ type: "", message: "" });
+
+    try {
+      await axios.post(
+        "http://localhost:8080/api/cart-items",
+        {
+          itemId: itemId,
+          quantity: 1,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+
+      setCartStatus({
+        type: "success",
+        message: "Item added to your cart.",
+      });
+      openCart();
+    } catch {
+      setCartStatus({
+        type: "error",
+        message: "Unable to add this item to your cart. Please try again.",
+      });
+    } finally {
+      setAddingToCart(false);
+    }
   }
 
   return (
@@ -139,11 +169,18 @@ export function ItemPage() {
               <Button
                 leftSection={<IconShoppingCartPlus size={18} />}
                 onClick={handleAddToCart}
+                loading={addingToCart}
                 w={{ base: "100%", sm: "fit-content" }}
                 mt="sm"
               >
                 Add to cart
               </Button>
+
+              {cartStatus.message && (
+                <Alert color={cartStatus.type === "success" ? "teal" : "red"}>
+                  {cartStatus.message}
+                </Alert>
+              )}
             </Stack>
           </Group>
         </Stack>

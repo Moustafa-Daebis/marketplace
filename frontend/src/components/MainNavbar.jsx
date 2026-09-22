@@ -7,8 +7,6 @@ import {
   IconUser,
   IconListDetails,
 } from "@tabler/icons-react";
-import { useDisclosure } from "@mantine/hooks";
-import { CartDrawer } from "./CartDrawer";
 
 export function MainNavbar({
   onLogout,
@@ -16,13 +14,10 @@ export function MainNavbar({
   onItemsClick,
   onCreateItemClick,
   onProfileClick,
+  onCartClick,
 }) {
-  const [cartOpened, { open: openCart, close: closeCart }] =
-    useDisclosure(false);
-
   return (
     <>
-      <CartDrawer opened={cartOpened} onClose={closeCart} />
       <Group justify="space-between" wrap="wrap" gap="md" h="100%" px="md">
         <UnstyledButton onClick={onHomeClick} aria-label="Go to home page">
           <Text fw={700} size="lg">
@@ -36,7 +31,7 @@ export function MainNavbar({
           <Button variant="subtle" onClick={onCreateItemClick}>
             Sell
           </Button>
-          <Button variant="subtle" aria-label="Cart" onClick={openCart}>
+          <Button variant="subtle" aria-label="Cart" onClick={onCartClick}>
             <IconShoppingCart size={20} stroke={1.8} />
           </Button>
           <Menu shadow="md" width={180} position="bottom-end">
