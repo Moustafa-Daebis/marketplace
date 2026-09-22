@@ -26,8 +26,7 @@ export function LoginForm({ onSubmit }) {
       onSubmit(data.user ?? { email: email.trim() }, data.token);
     } catch (requestError) {
       setError(
-        requestError.response?.data?.message ??
-          "Unable to sign in. Check your details and try again.",
+        requestError.response?.data?.message ?? "Incorrect email or password",
       );
     } finally {
       setIsSubmitting(false);
@@ -52,6 +51,7 @@ export function LoginForm({ onSubmit }) {
           placeholder="Your password"
           value={password}
           onChange={(event) => setPassword(event.currentTarget.value)}
+          error={error}
           required
           disabled={isSubmitting}
         />
