@@ -5,6 +5,7 @@ import { HomePage } from "./pages/HomePage";
 import { MainPage } from "./pages/MainPage";
 import { ProfilePage } from "./pages/ProfilePage";
 import { ItemsPage } from "./pages/ItemsPage";
+import { ItemPage } from "./pages/ItemPage";
 import { CreateItemPage } from "./pages/CreateItemPage";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 
@@ -30,6 +31,7 @@ function App() {
       <Route path="/" element={<RootRoute />}>
         <Route path="profile" element={<ProfilePage />} />
         <Route path="items" element={<ItemsPage />} />
+        <Route path="items/:itemId" element={<ItemPage />} />
         <Route path="items/create" element={<CreateItemPage />} />
       </Route>
       <Route
