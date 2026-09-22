@@ -5,11 +5,18 @@ import {
   IconSettings,
   IconShoppingCart,
   IconUser,
+  IconListDetails,
 } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
 import { CartDrawer } from "./CartDrawer";
 
-export function MainNavbar({ onLogout, onHomeClick, onItemsClick, onProfileClick }) {
+export function MainNavbar({
+  onLogout,
+  onHomeClick,
+  onItemsClick,
+  onCreateItemClick,
+  onProfileClick,
+}) {
   const [cartOpened, { open: openCart, close: closeCart }] =
     useDisclosure(false);
 
@@ -26,7 +33,9 @@ export function MainNavbar({ onLogout, onHomeClick, onItemsClick, onProfileClick
           <Button variant="subtle" onClick={onItemsClick}>
             Items
           </Button>
-          <Button variant="subtle">Sell</Button>
+          <Button variant="subtle" onClick={onCreateItemClick}>
+            Sell
+          </Button>
           <Button variant="subtle" aria-label="Cart" onClick={openCart}>
             <IconShoppingCart size={20} stroke={1.8} />
           </Button>
@@ -51,6 +60,9 @@ export function MainNavbar({ onLogout, onHomeClick, onItemsClick, onProfileClick
               </Menu.Item>
               <Menu.Item leftSection={<IconHeart size={16} />}>
                 Favourites
+              </Menu.Item>
+              <Menu.Item leftSection={<IconListDetails size={16} />}>
+                Listing
               </Menu.Item>
             </Menu.Dropdown>
           </Menu>

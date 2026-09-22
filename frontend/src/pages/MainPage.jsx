@@ -20,6 +20,7 @@ export function MainPage() {
           onLogout={handleLogout}
           onHomeClick={() => navigate("/")}
           onItemsClick={() => navigate("/items")}
+          onCreateItemClick={() => navigate("/items/create")}
           onProfileClick={() => navigate("/profile")}
         />
       </AppShell.Header>

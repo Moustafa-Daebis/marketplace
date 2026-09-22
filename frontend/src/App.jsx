@@ -4,6 +4,7 @@ import { RegisterPage } from "./pages/RegisterPage";
 import { MainPage } from "./pages/MainPage";
 import { ProfilePage } from "./pages/ProfilePage";
 import { ItemsPage } from "./pages/ItemsPage";
+import { CreateItemPage } from "./pages/CreateItemPage";
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 
 function ProtectedRoute() {
@@ -39,6 +40,7 @@ function App() {
         <Route path="/" element={<MainPage />}>
           <Route path="profile" element={<ProfilePage />} />
           <Route path="items" element={<ItemsPage />} />
+          <Route path="items/create" element={<CreateItemPage />} />
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
