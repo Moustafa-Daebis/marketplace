@@ -1,7 +1,12 @@
+import { useEffect, useState, useCallback } from "react";
+import axios from "axios";
 import {
+  Alert,
   Badge,
   Button,
+  Center,
   Group,
+  Loader,
   Paper,
   Stack,
   Tabs,
@@ -9,53 +14,50 @@ import {
   Title,
 } from "@mantine/core";
 import {
+  IconAlertCircle,
   IconArrowRight,
   IconPackage,
   IconReceipt,
   IconShoppingBag,
 } from "@tabler/icons-react";
+import { useAuth } from "../hooks/useAuth";
 
-const purchaseOrders = [
-  {
-    id: "ORD-1042",
-    item: "Wireless keyboard",
-    seller: "Mona Ahmed",
-    status: "Processing",
-    total: "$42.00",
-    date: "Sep 22, 2026",
-  },
-  {
-    id: "ORD-1038",
-    item: "Desk lamp",
-    seller: "Youssef Ali",
-    status: "Delivered",
-    total: "$18.50",
-    date: "Sep 18, 2026",
-  },
-];
+const api = axios.create({
+  baseURL: "http://localhost:8080/api/orderitems",
+});
 
-const salesOrders = [
-  {
-    id: "SALE-218",
-    item: "Vintage headphones",
-    buyer: "Laila Hassan",
-    status: "Awaiting pickup",
-    total: "$65.00",
-    date: "Sep 21, 2026",
-  },
-  {
-    id: "SALE-204",
-    item: "Mechanical mouse",
-    buyer: "Omar Saleh",
-    status: "Completed",
-    total: "$29.00",
-    date: "Sep 15, 2026",
-  },
-];
+async function fetchOrderItems(endpoint, token) {
+  const { data } = await api.get(`/${endpoint}`, {
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+  });
+  return data;
+}
 
-function OrderCard({ order, type }) {
-  const personLabel = type === "purchase" ? "Seller" : "Buyer";
-  const personName = type === "purchase" ? order.seller : order.buyer;
+const statusColors = {
+  PENDING: "yellow",
+  PROCESSING: "blue",
+  DELIVERED: "teal",
+  COMPLETED: "teal",
+  CANCELLED: "red",
+  AWAITING_PICKUP: "orange",
+};
+
+function formatStatus(status) {
+  if (!status) return "";
+  return status
+    .toLowerCase()
+    .split("_")
+    .map((w) => w[0].toUpperCase() + w.slice(1))
+    .join(" ");
+}
+
+function formatCurrency(value) {
+  const num = Number(value ?? 0);
+  return `$${num.toFixed(2)}`;
+}
+
+function OrderCard({ item }) {
+  const total = item.price * item.quantity;
 
   return (
     <Paper withBorder radius="md" p="md">
@@ -64,22 +66,27 @@ function OrderCard({ order, type }) {
           <IconPackage size={24} stroke={1.8} />
           <Stack gap={4}>
             <Group gap="xs">
-              <Text fw={700}>{order.item}</Text>
-              <Badge variant="light" color="teal">
-                {order.status}
+              <Text fw={700}>{item.itemName}</Text>
+              <Badge
+                variant="light"
+                color={statusColors[item.status] ?? "gray"}
+              >
+                {formatStatus(item.status)}
               </Badge>
             </Group>
             <Text size="sm" c="dimmed">
-              {order.id} · {order.date}
+              Order {item.orderId} · Qty {item.quantity}
             </Text>
-            <Text size="sm" c="dimmed">
-              {personLabel}: {personName}
-            </Text>
+            {item.itemDescription && (
+              <Text size="sm" c="dimmed">
+                {item.itemDescription}
+              </Text>
+            )}
           </Stack>
         </Group>
 
         <Stack align="flex-end" gap="xs">
-          <Text fw={800}>{order.total}</Text>
+          <Text fw={800}>{formatCurrency(total)}</Text>
           <Button
             variant="subtle"
             size="xs"
@@ -93,7 +100,94 @@ function OrderCard({ order, type }) {
   );
 }
 
+function OrderList({ items, loading, error, onRetry, emptyLabel }) {
+  if (loading) {
+    return (
+      <Center py="xl">
+        <Loader size="sm" />
+      </Center>
+    );
+  }
+
+  if (error) {
+    return (
+      <Alert
+        color="red"
+        icon={<IconAlertCircle size={16} />}
+        title="Couldn't load orders"
+      >
+        <Stack gap="sm">
+          <Text size="sm">{error}</Text>
+          <Button size="xs" variant="light" onClick={onRetry} w="fit-content">
+            Retry
+          </Button>
+        </Stack>
+      </Alert>
+    );
+  }
+
+  if (!items.length) {
+    return (
+      <Center py="xl">
+        <Text c="dimmed" size="sm">
+          {emptyLabel}
+        </Text>
+      </Center>
+    );
+  }
+
+  return (
+    <Stack gap="sm">
+      {items.map((item) => (
+        <OrderCard key={item.id} item={item} />
+      ))}
+    </Stack>
+  );
+}
+
 export function OrdersPage() {
+  const { token } = useAuth();
+
+  const [purchases, setPurchases] = useState([]);
+  const [purchasesLoading, setPurchasesLoading] = useState(true);
+  const [purchasesError, setPurchasesError] = useState(null);
+
+  const [sales, setSales] = useState([]);
+  const [salesLoading, setSalesLoading] = useState(true);
+  const [salesError, setSalesError] = useState(null);
+
+  const loadPurchases = useCallback(() => {
+    setPurchasesLoading(true);
+    setPurchasesError(null);
+    fetchOrderItems("purchases", token)
+      .then(setPurchases)
+      .catch((err) =>
+        setPurchasesError(
+          err.response?.data?.message ?? err.message ?? "Something went wrong",
+        ),
+      )
+      .finally(() => setPurchasesLoading(false));
+  }, [token]);
+
+  const loadSales = useCallback(() => {
+    setSalesLoading(true);
+    setSalesError(null);
+    fetchOrderItems("sales", token)
+      .then(setSales)
+      .catch((err) =>
+        setSalesError(
+          err.response?.data?.message ?? err.message ?? "Something went wrong",
+        ),
+      )
+      .finally(() => setSalesLoading(false));
+  }, [token]);
+
+  useEffect(() => {
+    if (!token) return;
+    loadPurchases();
+    loadSales();
+  }, [token, loadPurchases, loadSales]);
+
   return (
     <Stack gap="lg">
       <div>
@@ -114,19 +208,23 @@ export function OrdersPage() {
         </Tabs.List>
 
         <Tabs.Panel value="purchases" pt="md">
-          <Stack gap="sm">
-            {purchaseOrders.map((order) => (
-              <OrderCard key={order.id} order={order} type="purchase" />
-            ))}
-          </Stack>
+          <OrderList
+            items={purchases}
+            loading={purchasesLoading}
+            error={purchasesError}
+            onRetry={loadPurchases}
+            emptyLabel="No purchases yet."
+          />
         </Tabs.Panel>
 
         <Tabs.Panel value="sales" pt="md">
-          <Stack gap="sm">
-            {salesOrders.map((order) => (
-              <OrderCard key={order.id} order={order} type="sale" />
-            ))}
-          </Stack>
+          <OrderList
+            items={sales}
+            loading={salesLoading}
+            error={salesError}
+            onRetry={loadSales}
+            emptyLabel="No sales yet."
+          />
         </Tabs.Panel>
       </Tabs>
     </Stack>
