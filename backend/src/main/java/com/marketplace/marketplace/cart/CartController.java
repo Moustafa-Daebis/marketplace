@@ -69,7 +69,7 @@ public class CartController {
             if (!cartItemDtos.isEmpty()) {
                 return ResponseEntity.ok(new ApiResponse<>(true, "Cart retrieved successfully", cartItemDtos));
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                return ResponseEntity.status(HttpStatus.NO_CONTENT)
                         .body(new ApiResponse<>(false, "Cart not found", null));
             }
         } catch (ResponseStatusException e) {

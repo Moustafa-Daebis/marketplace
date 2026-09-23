@@ -1,9 +1,11 @@
 package com.marketplace.marketplace.order;
 
+import com.marketplace.marketplace.authentication.entity.User;
 import com.marketplace.marketplace.user.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,9 +23,10 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<OrderDto>> createOrder(@Valid @RequestBody CreateOrderRequest request) {
+    public ResponseEntity<ApiResponse<OrderDto>> createOrder(Authentication authentication) {
         try {
-            OrderDto created = orderService.createOrder(request.getCartId());
+            User user = (User) authentication.getPrincipal();
+            OrderDto created = orderService.createOrder(user.getId());
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(new ApiResponse<>(true, "Order created successfully", created));
         } catch (ResponseStatusException e) {

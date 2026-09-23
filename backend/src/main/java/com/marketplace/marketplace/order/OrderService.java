@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.RecursiveTask;
 
@@ -38,7 +39,17 @@ public class OrderService {
     }
 
     @Transactional
-    public OrderDto createOrder(UUID cartId) {
+    public OrderDto createOrder(UUID userId) {
+
+        if (userId == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "userId not found");
+        }
+
+        Optional<CartEntity> cartEntity = cartRepository.findByUserId(userId);
+        if(!cartEntity.isPresent()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cart not required");
+        }
+        UUID cartId = cartEntity.get().getId();
         if (cartId == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cart id is required");
         }
