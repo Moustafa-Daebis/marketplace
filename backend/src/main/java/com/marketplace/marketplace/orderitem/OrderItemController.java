@@ -18,9 +18,16 @@ public class OrderItemController {
         this.orderItemService = orderItemService;
     }
 
-    @GetMapping
+    @GetMapping("/sales")
     public List<OrderItemDto> getAllOrderItemsByUserEmail(Authentication authentication){
         List<OrderItemDto> list = orderItemService.getAllOrderItemDTOSByEmail(authentication.getName());
+
+        return list;
+    }
+
+    @GetMapping("/purchases")
+    public List<OrderItemDto> getAllOrderItemsPurchases(Authentication authentication){
+        List<OrderItemDto> list = orderItemService.getAllOrderItemPurchases(authentication);
 
         return list;
     }

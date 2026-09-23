@@ -1,5 +1,6 @@
 package com.marketplace.marketplace.orderitem;
 
+import com.marketplace.marketplace.authentication.entity.User;
 import com.marketplace.marketplace.user.UserDto;
 import com.marketplace.marketplace.user.UserEntity;
 import com.marketplace.marketplace.user.UserService;
@@ -29,8 +30,8 @@ public class OrderItemService {
 
         Optional<UserDto> user = userService.getUserByEmail(userEmail);
         if(user.isPresent()){
-            Optional<OrderItemEntity> list = orderItemRepository.findOrdersItemsBySellerId(user.get().getId());
-            if(list.isPresent()){
+            List<OrderItemEntity> list = orderItemRepository.findOrdersItemsBySellerId(user.get().getId());
+            if(!list.isEmpty()){
                 return list.stream()
                         .map(OrderItemDto::fromEntity)
                         .collect(Collectors.toList());
@@ -42,6 +43,26 @@ public class OrderItemService {
         }
 
     }
+
+    public List<OrderItemDto>  getAllOrderItemPurchases(Authentication authentication){
+
+        User user = (User)authentication.getPrincipal();
+
+        if(user!=null){
+            List<OrderItemEntity> list = orderItemRepository.findOrdersItemsByBuyerId(user.getId());
+            if(!list.isEmpty()){
+                return list.stream()
+                        .map(OrderItemDto::fromEntity)
+                        .collect(Collectors.toList());
+            }else{
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No orders found");
+            }
+        }else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+        }
+
+    }
+
     @Transactional
     public OrderItemDto changeOrderItemStatus(UUID orderItemId,String userEmail, String status){
 

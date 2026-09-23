@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 @Repository
@@ -32,8 +33,18 @@ public interface OrderItemRepository extends JpaRepository<OrderItemEntity, UUID
     JOIN oi.item i
     WHERE i.seller.id = :sellerId
 """)
-    Optional<OrderItemEntity> findOrdersItemsBySellerId(
+    List<OrderItemEntity> findOrdersItemsBySellerId(
             @Param("sellerId") UUID sellerId
+    );
+
+    @Query("""
+    SELECT oi
+    FROM OrderItemEntity oi
+    JOIN oi.order o
+    WHERE o.user.id = :buyerId
+""")
+    List<OrderItemEntity> findOrdersItemsByBuyerId(
+            @Param("buyerId") UUID buyerId
     );
 
     @Query("""
