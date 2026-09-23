@@ -44,28 +44,28 @@ public class ItemViewController {
         return "add-item";
     }
 
-    @GetMapping("/items/{id}")
-    public String itemDetails(Model model, Authentication authentication, @PathVariable("id") String itemId) {
+//    @GetMapping("/items/{id}")
+//    public String itemDetails(Model model, Authentication authentication, @PathVariable("id") String itemId) {
+//
+//        if(itemId == null || itemId.isEmpty() || !itemId.matches("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")) {
+//            return "redirect:/items";
+//        }
+//        authenticationViewService.addAuthenticationModel(model, authentication);
+//        Optional<ItemDto> item = itemService.getItemById(UUID.fromString(itemId));
+//        UUID userId = model.getAttribute("user") != null ? ((UserDto) model.getAttribute("user")).getId() : null;
+//        Optional<CartDto> cart = cartService.getCartByUserId(userId);
+//        if(!cart.isPresent()) {
+//            CartDto newCart = cartService.createCart(userId);
+//            model.addAttribute("cartId", newCart.getId());
+//        } else {
+//            model.addAttribute("cartId", cart.get().getId());
+//        }
+//
+//        if(item.isPresent()) {
+//            model.addAttribute("item", item.get());
+//        } else {
+//           return "redirect:/items";
+//        }
+//        return "item-details";
 
-        if(itemId == null || itemId.isEmpty() || !itemId.matches("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")) {
-            return "redirect:/items";
-        }
-        authenticationViewService.addAuthenticationModel(model, authentication);
-        Optional<ItemDto> item = itemService.getItemById(UUID.fromString(itemId));
-        UUID userId = model.getAttribute("user") != null ? ((UserDto) model.getAttribute("user")).getId() : null;
-        Optional<CartDto> cart = cartService.getCartByUserId(userId);
-        if(!cart.isPresent()) {
-            CartDto newCart = cartService.createCart(userId);
-            model.addAttribute("cartId", newCart.getId());
-        } else {
-            model.addAttribute("cartId", cart.get().getId());
-        }
-
-        if(item.isPresent()) {
-            model.addAttribute("item", item.get());
-        } else {
-           return "redirect:/items";
-        }
-        return "item-details";
-    }
 }
