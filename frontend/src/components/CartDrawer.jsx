@@ -20,6 +20,7 @@ import {
   IconShoppingCart,
   IconTrash,
 } from "@tabler/icons-react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { CartItem } from "./CartItem";
 
@@ -45,6 +46,7 @@ function formatPrice(price) {
 
 export function CartDrawer({ opened, onClose }) {
   const { token } = useAuth();
+  const navigate = useNavigate();
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -57,6 +59,11 @@ export function CartDrawer({ opened, onClose }) {
     [cartItems],
   );
   const hasItems = cartItems.length > 0;
+
+  function handleCheckout() {
+    onClose();
+    navigate("/checkout");
+  }
 
   useEffect(() => {
     if (!opened || !token) return undefined;
@@ -220,6 +227,7 @@ export function CartDrawer({ opened, onClose }) {
             <Button
               disabled={!hasItems}
               rightSection={<IconArrowRight size={18} />}
+              onClick={handleCheckout}
             >
               Checkout
             </Button>
