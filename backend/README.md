@@ -1,7 +1,14 @@
 Marketplace
 =========
 
-A simple Spring Boot marketplace web application providing user authentication, item listing, cart management, and basic views. Built with Java and Maven; includes Thymeleaf templates and SQL schema files for H2 and PostgreSQL.
+A Spring Boot marketplace backend application providing RestAPIs for the following:
+
+- user creation and authorization
+- item viewing and creation
+- cart creation and management
+- order creation from cart
+- sales management through changing order status
+- viewing purchases status
 
 ## Project structure (top-level)
 -----------------------------
@@ -18,6 +25,7 @@ A simple Spring Boot marketplace web application providing user authentication, 
 |   |   |           |   |   |-- AuthController.java
 |   |   |           |   |-- dto/
 |   |   |           |   |   |-- AuthResponse.java
+|   |   |           |   |   |-- ChangePasswordRequest.java
 |   |   |           |   |   |-- LoginRequest.java
 |   |   |           |   |   |-- RegisterRequest.java
 |   |   |           |   |-- entity/
@@ -58,23 +66,30 @@ A simple Spring Boot marketplace web application providing user authentication, 
 |   |   |           |   |-- ItemService.java
 |   |   |           |-- user/
 |   |   |           |   |-- ApiResponse.java
+|   |   |           |   |-- ChangeUserDetailsRequest.java
 |   |   |           |   |-- UserController.java
 |   |   |           |   |-- UserDto.java
 |   |   |           |   |-- UserEntity.java
 |   |   |           |   |-- UserRepository.java
 |   |   |           |   |-- UserService.java
-|   |   |           |-- view/
-|   |   |               |-- ViewController.java
+|   |   |           |-- order/
+|   |   |           |   |-- CreateOrderRequest.java
+|   |   |           |   |-- OrderController.java
+|   |   |           |   |-- OrderDto.java
+|   |   |           |   |-- OrderEntity.java
+|   |   |           |   |-- OrderRepository.java
+|   |   |           |   |-- OrderService.java
+|   |   |           |-- orderitem/
+|   |   |           |   |-- ChangeOrderItemStatusRequest.java
+|   |   |           |   |-- OrderItemController.java
+|   |   |           |   |-- OrderItemDto.java
+|   |   |           |   |-- OrderItemEntity.java
+|   |   |           |   |-- OrderItemRepository.java
+|   |   |           |   |-- OrderItemService.java
 |   |   |-- resources/
 |   |   |   |-- application.properties
 |   |   |   |-- application-dev.properties
 |   |   |   |-- application-prod.properties
-|   |   |   |-- templates/
-|   |   |       |-- add-item.html
-|   |   |       |-- index.html
-|   |   |       |-- items.html
-|   |   |       |-- login.html
-|   |   |       |-- register.html
 |   |-- test/
 |       |-- java/
 |           |-- com/
