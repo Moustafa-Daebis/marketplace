@@ -1,0 +1,18 @@
+# Exported from Render on 2026-09-23T12:41:22Z
+version: "1"
+projects:
+- name: My project
+  environments:
+  - name: Production
+    services:
+    - type: web
+      name: marketplace preview
+      runtime: static
+      repo: https://github.com/Moustafa-Daebis/marketplace
+      envVars:
+      - key: VITE_API_URL
+        sync: false
+      buildCommand: ' npm run build;'
+      staticPublishPath: dist
+      autoDeployTrigger: commit
+      rootDir: frontend/
