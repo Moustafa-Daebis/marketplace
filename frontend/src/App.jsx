@@ -8,6 +8,7 @@ import { ItemsPage } from "./pages/ItemsPage";
 import { ItemPage } from "./pages/ItemPage";
 import { CreateItemPage } from "./pages/CreateItemPage";
 import { CheckoutPage } from "./pages/CheckoutPage";
+import { OrdersPage } from "./pages/OrdersPage";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 
 function PublicRoute({ children }) {
@@ -35,6 +36,7 @@ function App() {
         <Route path="items/:itemId" element={<ItemPage />} />
         <Route path="items/create" element={<CreateItemPage />} />
         <Route path="checkout" element={<CheckoutPage />} />
+        <Route path="orders" element={<OrdersPage />} />
       </Route>
       <Route
         path="/login"

@@ -27,6 +27,7 @@ export function MainPage() {
           onItemsClick={() => navigate("/items")}
           onCreateItemClick={() => navigate("/items/create")}
           onProfileClick={() => navigate("/profile")}
+          onOrdersClick={() => navigate("/orders")}
           onCartClick={openCart}
         />
       </AppShell.Header>

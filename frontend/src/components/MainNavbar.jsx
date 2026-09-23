@@ -14,6 +14,7 @@ export function MainNavbar({
   onItemsClick,
   onCreateItemClick,
   onProfileClick,
+  onOrdersClick,
   onCartClick,
 }) {
   return (
@@ -50,7 +51,10 @@ export function MainNavbar({
               <Menu.Item leftSection={<IconSettings size={16} />}>
                 Settings
               </Menu.Item>
-              <Menu.Item leftSection={<IconPackage size={16} />}>
+              <Menu.Item
+                leftSection={<IconPackage size={16} />}
+                onClick={onOrdersClick}
+              >
                 Orders
               </Menu.Item>
               <Menu.Item leftSection={<IconHeart size={16} />}>
