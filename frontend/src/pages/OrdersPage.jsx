@@ -8,6 +8,7 @@ import {
   Group,
   Loader,
   Paper,
+  Select,
   Stack,
   Tabs,
   Text,
@@ -21,7 +22,7 @@ import {
   IconShoppingBag,
 } from "@tabler/icons-react";
 import { useAuth } from "../hooks/useAuth";
-
+import { useNavigate } from "react-router-dom";
 const api = axios.create({
   baseURL: "http://localhost:8080/api/orderitems",
 });
@@ -33,6 +34,15 @@ async function fetchOrderItems(endpoint, token) {
   return data;
 }
 
+async function updateOrderItemStatus({ orderItemId, status }, token) {
+  const { data } = await api.patch(
+    "",
+    { orderItemId, status },
+    { headers: token ? { Authorization: `Bearer ${token}` } : {} },
+  );
+  return data;
+}
+
 const statusColors = {
   PENDING: "yellow",
   PROCESSING: "blue",
@@ -40,7 +50,19 @@ const statusColors = {
   COMPLETED: "teal",
   CANCELLED: "red",
   AWAITING_PICKUP: "orange",
+  CONFIRMED: "blue",
+  PREPARING: "orange",
+  DELIVERING: "grape",
 };
+
+// Dropdown options for sales. `value` is what's sent in the PATCH body,
+// matching the casing shown in the sample request ("Confirmed", not "CONFIRMED").
+const SALE_STATUS_OPTIONS = [
+  { value: "Confirmed", label: "Confirmed" },
+  { value: "Preparing", label: "Preparing" },
+  { value: "Delivering", label: "Delivering" },
+  { value: "Delivered", label: "Delivered" },
+];
 
 function formatStatus(status) {
   if (!status) return "";
@@ -56,7 +78,71 @@ function formatCurrency(value) {
   return `$${num.toFixed(2)}`;
 }
 
-function OrderCard({ item }) {
+// Maps whatever casing/format the backend returns (e.g. "DELIVERING" or
+// "Delivering") to one of our option values, so the Select shows the
+// right current selection.
+function normalizeStatusToOption(status) {
+  if (!status) return null;
+  const match = SALE_STATUS_OPTIONS.find(
+    (opt) => opt.value.toUpperCase() === status.toUpperCase(),
+  );
+  return match ? match.value : null;
+}
+
+function SaleStatusSelect({ item, token, onStatusUpdated }) {
+  const [value, setValue] = useState(normalizeStatusToOption(item.status));
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setValue(normalizeStatusToOption(item.status));
+  }, [item.status]);
+
+  const handleChange = async (newStatus) => {
+    if (!newStatus || newStatus === value) return;
+
+    const previousValue = value;
+    setValue(newStatus); // optimistic update
+    setLoading(true);
+    setError(null);
+
+    try {
+      await updateOrderItemStatus(
+        { orderItemId: item.id, status: newStatus },
+        token,
+      );
+      onStatusUpdated(item.id, newStatus);
+    } catch (err) {
+      setValue(previousValue); // revert on failure
+      setError(err.response?.data?.message ?? err.message ?? "Update failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <Stack gap={4} align="flex-end">
+      <Select
+        size="xs"
+        w={160}
+        data={SALE_STATUS_OPTIONS}
+        value={value}
+        onChange={handleChange}
+        disabled={loading}
+        rightSection={loading ? <Loader size={12} /> : undefined}
+        placeholder="Set status"
+      />
+      {error && (
+        <Text size="xs" c="red">
+          {error}
+        </Text>
+      )}
+    </Stack>
+  );
+}
+
+function OrderCard({ item, type, token, onStatusUpdated }) {
+  const navigate = useNavigate();
   const total = item.price * item.quantity;
 
   return (
@@ -69,7 +155,7 @@ function OrderCard({ item }) {
               <Text fw={700}>{item.itemName}</Text>
               <Badge
                 variant="light"
-                color={statusColors[item.status] ?? "gray"}
+                color={statusColors[item.status?.toUpperCase()] ?? "gray"}
               >
                 {formatStatus(item.status)}
               </Badge>
@@ -87,20 +173,39 @@ function OrderCard({ item }) {
 
         <Stack align="flex-end" gap="xs">
           <Text fw={800}>{formatCurrency(total)}</Text>
-          <Button
-            variant="subtle"
-            size="xs"
-            rightSection={<IconArrowRight size={14} />}
-          >
-            Details
-          </Button>
+
+          {type === "sale" ? (
+            <SaleStatusSelect
+              item={item}
+              token={token}
+              onStatusUpdated={onStatusUpdated}
+            />
+          ) : (
+            <Button
+              variant="subtle"
+              size="xs"
+              rightSection={<IconArrowRight size={14} />}
+              onClick={() => navigate(`/items/${item.itemId}`)}
+            >
+              Details
+            </Button>
+          )}
         </Stack>
       </Group>
     </Paper>
   );
 }
 
-function OrderList({ items, loading, error, onRetry, emptyLabel }) {
+function OrderList({
+  items,
+  loading,
+  error,
+  onRetry,
+  emptyLabel,
+  type,
+  token,
+  onStatusUpdated,
+}) {
   if (loading) {
     return (
       <Center py="xl">
@@ -139,7 +244,13 @@ function OrderList({ items, loading, error, onRetry, emptyLabel }) {
   return (
     <Stack gap="sm">
       {items.map((item) => (
-        <OrderCard key={item.id} item={item} />
+        <OrderCard
+          key={item.id}
+          item={item}
+          type={type}
+          token={token}
+          onStatusUpdated={onStatusUpdated}
+        />
       ))}
     </Stack>
   );
@@ -188,6 +299,14 @@ export function OrdersPage() {
     loadSales();
   }, [token, loadPurchases, loadSales]);
 
+  const handleSaleStatusUpdated = useCallback((itemId, newStatus) => {
+    setSales((prev) =>
+      prev.map((item) =>
+        item.id === itemId ? { ...item, status: newStatus } : item,
+      ),
+    );
+  }, []);
+
   return (
     <Stack gap="lg">
       <div>
@@ -214,6 +333,8 @@ export function OrdersPage() {
             error={purchasesError}
             onRetry={loadPurchases}
             emptyLabel="No purchases yet."
+            type="purchase"
+            token={token}
           />
         </Tabs.Panel>
 
@@ -224,6 +345,9 @@ export function OrdersPage() {
             error={salesError}
             onRetry={loadSales}
             emptyLabel="No sales yet."
+            type="sale"
+            token={token}
+            onStatusUpdated={handleSaleStatusUpdated}
           />
         </Tabs.Panel>
       </Tabs>
