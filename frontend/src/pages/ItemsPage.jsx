@@ -22,9 +22,12 @@ export function ItemsPage() {
   useEffect(() => {
     async function fetchItems() {
       try {
-        const response = await axios.get("http://localhost:8080/api/items", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/items`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          },
+        );
         const apiItems = response.data?.data ?? [];
 
         setItems(

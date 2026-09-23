@@ -76,7 +76,7 @@ export function CartDrawer({ opened, onClose }) {
 
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/carts/items",
+          `${import.meta.env.VITE_API_URL}/api/carts/items`,
           {
             headers: { Authorization: `Bearer ${token}` },
             signal: controller.signal,

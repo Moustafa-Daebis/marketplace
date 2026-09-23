@@ -31,7 +31,7 @@ export function CreateItemForm({ token, onSuccess }) {
       setError("");
       setIsSubmitting(true);
       const { data } = await axios.post(
-        "http://localhost:8080/api/items",
+        `${import.meta.env.VITE_API_URL}/api/items`,
         {
           name: form.name.trim(),
           description: form.description.trim(),

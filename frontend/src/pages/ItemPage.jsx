@@ -40,7 +40,7 @@ export function ItemPage() {
 
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/items/${itemId}`,
+          `${import.meta.env.VITE_API_URL}/api/items/${itemId}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           },
@@ -102,7 +102,7 @@ export function ItemPage() {
 
     try {
       await axios.post(
-        "http://localhost:8080/api/cart-items",
+        `${import.meta.env.VITE_API_URL}/api/cart-items`,
         {
           itemId: itemId,
           quantity: 1,

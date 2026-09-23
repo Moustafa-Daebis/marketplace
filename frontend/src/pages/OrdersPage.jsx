@@ -24,7 +24,7 @@ import {
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 const api = axios.create({
-  baseURL: "http://localhost:8080/api/orderitems",
+  baseURL: `${import.meta.env.VITE_API_URL}/api/orderitems`,
 });
 
 async function fetchOrderItems(endpoint, token) {

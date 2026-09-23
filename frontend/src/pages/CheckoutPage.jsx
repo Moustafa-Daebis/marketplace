@@ -62,7 +62,7 @@ export function CheckoutPage() {
 
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/carts/items",
+          `${import.meta.env.VITE_API_URL}/api/carts/items`,
           {
             headers: { Authorization: `Bearer ${token}` },
             signal: controller.signal,
@@ -89,7 +89,7 @@ export function CheckoutPage() {
 
     try {
       await axios.post(
-        "http://localhost:8080/api/orders",
+        `${import.meta.env.VITE_API_URL}/api/orders`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
