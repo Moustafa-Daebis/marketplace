@@ -14,8 +14,7 @@ build
 out
 
 # Maven wrapper cache if not needed
-.mvn/wrapper/*
-.mvn
+
 
 # Local env files
 .env
