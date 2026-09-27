@@ -1,0 +1,40 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# IDE/editor
+.idea
+.vscode
+*.iml
+
+# Build output
+target
+build
+out
+
+# Maven wrapper cache if not needed
+.mvn/wrapper/*
+.mvn
+
+# Local env files
+.env
+.env.*
+*.local
+
+# Logs
+logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Tests / coverage
+coverage
+**/test-results
+**/surefire-reports
+
+# Optional: keep wrapper scripts if you do want to include them
+# mvnw
+# mvnw.cmd
