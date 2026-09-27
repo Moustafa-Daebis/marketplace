@@ -1,4 +1,4 @@
-FROM maven:3.9.9-eclipse-temurin-26 AS build
+FROM maven:3.9.9-eclipse-temurin-17 AS build
 WORKDIR /workspace
 
 COPY .mvn .mvn
@@ -11,7 +11,7 @@ RUN ./mvnw -q -DskipTests clean package \
     && JAR_FILE=$(find target -maxdepth 1 -type f -name "*.jar" ! -name "*-plain.jar" | head -n 1) \
     && cp "$JAR_FILE" /tmp/app.jar
 
-FROM eclipse-temurin:26-jre
+FROM eclipse-temurin:17-jre
 WORKDIR /app
 
 ENV CURR_ENV=prod
